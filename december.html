@@ -8,42 +8,73 @@
   <style>
     body { font-family: 'Poppins', sans-serif; background-color: #fff7f7; color: #111827; margin: 0; padding: 2rem; transition: background-image 0.5s ease-in-out; }
     .hidden { display: none; }
-    button, .btn-primary, .btn-secondary, .btn-choice { background-color: #e86b6b; color: white; padding: 0.8rem 1.5rem; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; font-family: 'Poppins', sans-serif; }
+
+    /* Buttons */
+    button, .btn-primary, .btn-secondary, .btn-choice {
+      background-color: #e86b6b; color: white; padding: 0.8rem 1.5rem; border: none; border-radius: 12px;
+      font-weight: bold; cursor: pointer; transition: all 0.3s ease; font-family: 'Poppins', sans-serif;
+    }
     button:hover, .btn-primary:hover, .btn-choice:hover { background-color: #d35a5a; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(232, 107, 107, 0.4); }
-    body.december-page { background-image: url('https://res.cloudinary.com/dimqqmfx6/image/upload/v1762841028/generated_flux_3169_1762841027_0_gcs2tw.png'); background-size: cover; background-position: center center; background-attachment: fixed; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+
+    body.december-page {
+      background-image: url('https://res.cloudinary.com/dimqqmfx6/image/upload/v1762841028/generated_flux_3169_1762841027_0_gcs2tw.png');
+      background-size: cover; background-position: center center; background-attachment: fixed;
+      display: flex; align-items: center; justify-content: center; min-height: 100vh;
+    }
+
     .wizard-container { width: 100%; max-width: 760px; }
     .wizard-step { display: none; animation: fadeIn 0.8s ease-in-out; }
     .wizard-step.active-step { display: block; }
-    .wizard-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 3rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: left; }
+
+    .wizard-card {
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 3rem; border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: left;
+    }
     .wizard-card h1, .wizard-card h2 { font-family: 'Playfair Display', serif; text-align: center; color: #111827; font-size: 2.8rem; margin-bottom: 1.5rem; }
     .wizard-card h2 { font-size: 2.2rem; }
     .wizard-card p { color: #6b7280; line-height: 1.6; text-align: center; margin-bottom: 2rem; }
     .wizard-card p.question { font-weight: bold; color: #111827; margin-bottom: 1rem; text-align: left; }
     .wizard-card p.hint { font-size: 0.9rem; text-align: center; margin-top: 2rem; margin-bottom: 0; }
+
     .button-group { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
     .button-group .btn-choice { flex-grow: 1; }
+
     .nav-buttons { display: flex; justify-content: space-between; margin-top: 2rem; border-top: 1px solid #f1f1f1; padding-top: 2rem; }
     .btn-secondary { background-color: transparent; color: #e86b6b; border: 1px solid #f4c9c9; }
     .btn-secondary:hover { background-color: #fff7f7; color: #e86b6b; box-shadow: none; transform: translateY(0); }
+
     .form-group { margin-bottom: 2rem; }
     .form-group label { display: block; background: #fff; padding: 1rem; border: 1px solid #f1f1f1; border-radius: 12px; margin-bottom: 0.5rem; cursor: pointer; transition: all 0.2s ease; }
     .form-group label:hover { border-color: #f4c9c9; background: #fff7f7; }
     .form-group input[type="radio"] { margin-right: 0.8rem; }
     .form-group input[type="text"] { width: 100%; padding: 0.8rem 1rem; border: 1px solid #e6e6e6; border-radius: 12px; margin-top: 0.5rem; }
     .form-group label small { display: block; color: #6b7280; margin-top: 0.25rem; margin-left: 28px; }
+
+    /* Getaway sub-options */
+    .trip-choice small { display:block; color:#6b7280; margin-top:4px; }
+    .trip-options { padding: 12px 16px; margin: 6px 0 18px 36px; border-left: 2px solid #f4c9c9; }
+    .sub-question { margin: 0 0 8px; font-weight: 600; color:#111827; }
+    .sub-row { display: flex; gap: 10px; align-items: center; margin: 10px 0; flex-wrap: wrap; }
+    .sub-row input[type="text"], .sub-row select { padding: 8px 10px; border:1px solid #e6e6e6; border-radius:10px; }
+
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body class="december-page">
   <div id="december-wizard" class="wizard-container">
 
-    <!-- Hidden registration form for Netlify to detect at build time -->
+    <!-- Hidden registration form so Netlify detects the form at build time -->
     <form name="december-plan" netlify netlify-honeypot="bot-field" hidden>
       <input type="text" name="tree-theme" />
       <input type="text" name="tree-theme-other" />
       <input type="text" name="tree-budget" />
       <input type="text" name="getaway" />
       <input type="text" name="getaway-other" />
+      <input type="text" name="trip-quick-range" />
+      <input type="text" name="trip-start" />
+      <input type="text" name="trip-end" />
+      <input type="text" name="trip-duration" />
+      <input type="text" name="trip-duration-other" />
       <input type="text" name="windsor-stay" />
       <input type="text" name="windsor-stay-other" />
       <input type="text" name="windsor-days" />
@@ -54,6 +85,7 @@
       <input type="hidden" name="form-name" value="december-plan" />
       <p class="hidden"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
 
+      <!-- Step 0 -->
       <div id="step-0" class="wizard-step active-step">
         <div class="wizard-card">
           <h1>Our December, Together.</h1>
@@ -68,6 +100,7 @@
         </div>
       </div>
 
+      <!-- Step 1 -->
       <div id="step-1" class="wizard-step">
         <div class="wizard-card">
           <h2>Our First Christmas Tree</h2>
@@ -93,16 +126,135 @@
         </div>
       </div>
 
+      <!-- Step 2: Our Christmas Getaway -->
       <div id="step-2" class="wizard-step">
         <div class="wizard-card">
-          <h2>Our 3-Day Christmas Getaway</h2>
+          <h2>Our Christmas Getaway</h2>
+
           <div class="form-group">
-            <label><input type="radio" name="getaway" value="New York"> <strong>New York City</strong> <small>We could re-create our 2023 Christmas day trip, but this time, wandering the sparkling streets as husband and wife.</small></label>
-            <label><input type="radio" name="getaway" value="Montreal"> <strong>Montréal</strong> <small>Imagine walking through the cobblestone streets of Old Montréal, with European Christmas markets and a magical, snowy atmosphere.</small></label>
-            <label><input type="radio" name="getaway" value="Quebec City"> <strong>Québec City</strong> <small>It's like stepping into a real-life Dickens village, incredibly romantic and festive. Known as the most Christmassy city in Canada.</small></label>
-            <label><input type="radio" name="getaway" value="Other"> <strong>Somewhere Else?</strong></label>
-            <input type="text" name="getaway-other" placeholder="Where is your heart telling you to go?">
+            <!-- NYC -->
+            <label class="trip-choice">
+              <input type="radio" name="getaway" value="New York City">
+              <strong>New York City</strong>
+              <small>We could re-create our 2023 Christmas day trip, but this time, wandering the sparkling streets as husband and wife.</small>
+            </label>
+            <div class="trip-options hidden">
+              <p class="sub-question">When would you like to go?</p>
+              <label><input type="radio" name="trip-quick-range" value="Dec 23–27"> Dec 23–27</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 27–30"> Dec 27–30</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 30–Jan 2"> Dec 30–Jan 2</label>
+              <div class="sub-row">
+                <span>Or choose your own:</span>
+                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)">
+                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)">
+              </div>
+              <div class="sub-row">
+                <label for="trip-duration">Preferred duration</label>
+                <select id="trip-duration" name="trip-duration">
+                  <option value="">Choose…</option>
+                  <option value="2 days">2 days</option>
+                  <option value="3 days">3 days</option>
+                  <option value="4 days">4 days</option>
+                  <option value="5 days">5 days</option>
+                  <option value="Other">Other (specify below)</option>
+                </select>
+                <input type="text" name="trip-duration-other" placeholder="If ‘Other’, tell me how many days">
+              </div>
+            </div>
+
+            <!-- Montreal -->
+            <label class="trip-choice">
+              <input type="radio" name="getaway" value="Montréal">
+              <strong>Montréal</strong>
+              <small>Imagine walking through the cobblestone streets of Old Montréal, with European Christmas markets and a magical, snowy atmosphere.</small>
+            </label>
+            <div class="trip-options hidden">
+              <p class="sub-question">When would you like to go?</p>
+              <label><input type="radio" name="trip-quick-range" value="Dec 23–27"> Dec 23–27</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 27–30"> Dec 27–30</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 30–Jan 2"> Dec 30–Jan 2</label>
+              <div class="sub-row">
+                <span>Or choose your own:</span>
+                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)">
+                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)">
+              </div>
+              <div class="sub-row">
+                <label for="trip-duration-2">Preferred duration</label>
+                <select id="trip-duration-2" name="trip-duration">
+                  <option value="">Choose…</option>
+                  <option value="2 days">2 days</option>
+                  <option value="3 days">3 days</option>
+                  <option value="4 days">4 days</option>
+                  <option value="5 days">5 days</option>
+                  <option value="Other">Other (specify below)</option>
+                </select>
+                <input type="text" name="trip-duration-other" placeholder="If ‘Other’, tell me how many days">
+              </div>
+            </div>
+
+            <!-- Québec City -->
+            <label class="trip-choice">
+              <input type="radio" name="getaway" value="Québec City">
+              <strong>Québec City</strong>
+              <small>It's like stepping into a real-life Dickens village, incredibly romantic and festive. Known as the most Christmassy city in Canada.</small>
+            </label>
+            <div class="trip-options hidden">
+              <p class="sub-question">When would you like to go?</p>
+              <label><input type="radio" name="trip-quick-range" value="Dec 23–27"> Dec 23–27</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 27–30"> Dec 27–30</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 30–Jan 2"> Dec 30–Jan 2</label>
+              <div class="sub-row">
+                <span>Or choose your own:</span>
+                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)">
+                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)">
+              </div>
+              <div class="sub-row">
+                <label for="trip-duration-3">Preferred duration</label>
+                <select id="trip-duration-3" name="trip-duration">
+                  <option value="">Choose…</option>
+                  <option value="2 days">2 days</option>
+                  <option value="3 days">3 days</option>
+                  <option value="4 days">4 days</option>
+                  <option value="5 days">5 days</option>
+                  <option value="Other">Other (specify below)</option>
+                </select>
+                <input type="text" name="trip-duration-other" placeholder="If ‘Other’, tell me how many days">
+              </div>
+            </div>
+
+            <!-- Somewhere else -->
+            <label class="trip-choice">
+              <input type="radio" name="getaway" value="Other">
+              <strong>Somewhere Else?</strong>
+            </label>
+            <div class="trip-options hidden">
+              <div class="sub-row">
+                <input type="text" name="getaway-other" placeholder="Where is your heart telling you to go?">
+              </div>
+              <p class="sub-question">When would you like to go?</p>
+              <label><input type="radio" name="trip-quick-range" value="Dec 23–27"> Dec 23–27</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 27–30"> Dec 27–30</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 30–Jan 2"> Dec 30–Jan 2</label>
+              <div class="sub-row">
+                <span>Or choose your own:</span>
+                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)">
+                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)">
+              </div>
+              <div class="sub-row">
+                <label for="trip-duration-4">Preferred duration</label>
+                <select id="trip-duration-4" name="trip-duration">
+                  <option value="">Choose…</option>
+                  <option value="2 days">2 days</option>
+                  <option value="3 days">3 days</option>
+                  <option value="4 days">4 days</option>
+                  <option value="5 days">5 days</option>
+                  <option value="Other">Other (specify below)</option>
+                </select>
+                <input type="text" name="trip-duration-other" placeholder="If ‘Other’, tell me how many days">
+              </div>
+            </div>
           </div>
+
           <div class="nav-buttons">
             <button type="button" class="btn-secondary" data-prev-step="1">Back</button>
             <button type="button" class="btn-primary" data-next-step="3">Next</button>
@@ -110,6 +262,7 @@
         </div>
       </div>
 
+      <!-- Step 3 -->
       <div id="step-3" class="wizard-step">
         <div class="wizard-card">
           <h2>Where to Stay in Windsor</h2>
@@ -133,6 +286,7 @@
         </div>
       </div>
 
+      <!-- Step 4 -->
       <div id="step-4" class="wizard-step">
         <div class="wizard-card">
           <h2>Our Perfect December Plan</h2>
@@ -147,6 +301,7 @@
     </form>
   </div>
 
+  <!-- Scripts -->
   <script>
     // Step navigation
     document.addEventListener('DOMContentLoaded', function () {
@@ -198,6 +353,28 @@
           });
       });
     }
+  </script>
+
+  <script>
+    // Reveal the date options under the selected destination
+    document.addEventListener('DOMContentLoaded', function () {
+      const tripChoices = document.querySelectorAll('.trip-choice input[name="getaway"]');
+
+      function hideAllTripOptions() {
+        document.querySelectorAll('.trip-options').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('input[name="trip-quick-range"]').forEach(r => r.checked = false);
+      }
+
+      tripChoices.forEach((radio) => {
+        radio.addEventListener('change', () => {
+          hideAllTripOptions();
+          const optionsBlock = radio.closest('label.trip-choice').nextElementSibling;
+          if (optionsBlock && optionsBlock.classList.contains('trip-options')) {
+            optionsBlock.classList.remove('hidden');
+          }
+        });
+      });
+    });
   </script>
 </body>
 </html>
