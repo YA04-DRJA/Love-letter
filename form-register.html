@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Register Netlify Form</title></head>
+<body>
+  <!-- Hidden static form so Netlify detects it at build time -->
+  <form name="december-plan" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="december-plan">
+    <p hidden><label>Don’t fill this out: <input name="bot-field"></label></p>
+
+    <!-- List the fields your wizard uses so they show up in submissions -->
+    <input type="hidden" name="tree-theme">
+    <input type="hidden" name="tree-theme-other">
+    <input type="hidden" name="tree-budget">
+    <input type="hidden" name="getaway">
+    <input type="hidden" name="getaway-other">
+    <input type="hidden" name="windsor-stay">
+    <input type="hidden" name="windsor-stay-other">
+    <input type="hidden" name="windsor-days">
+  </form>
+</body>
+</html>
