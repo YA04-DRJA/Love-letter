@@ -36,7 +36,7 @@
 </head>
 <body class="december-page">
     <div id="december-wizard" class="wizard-container">
-        <form name="december-plan" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="thank-you.html" style="display: contents;">
+        <form name="december-plan" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="thank-you.html">
             <input type="hidden" name="form-name" value="december-plan" />
             <p class="hidden"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
             <!-- Wizard steps go here -->
@@ -67,4 +67,12 @@
                         goToStep(nextStepIndex);
                     }
                     if (e.target.matches('[data-prev-step]')) {
-                        const prevStepIndex = parseInt(e.targe
+                        const prevStepIndex = parseInt(e.target.getAttribute('data-prev-step'));
+                        goToStep(prevStepIndex);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
