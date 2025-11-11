@@ -1,133 +1,65 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const pagePath = window.location.pathname;
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Config ---
+    const siteConfig = {
+        password: 'drja',
+        reasons: [ "Because of the way your smile can make any day feel like the best day of my life.", "Because you love your two little dogs with your whole heart.", "Because you see the world through the eyes of an artist.", "Because you have the strength to handle us being apart, which inspires me every day.", "Because you make even a simple Tuesday night feel special.", "Because you are the most thoughtful gift-giver.", "Because I love the sound of your laugh more than any song.", "Because you create beauty wherever you go, whether with a paintbrush or just your presence.", "Because you feel like home to me, no matter how many miles are between us.", "Because of the way you care for people when they need it most.", "Because you are ambitious and passionate about your future.", "Because you have the courage to be vulnerable and honest.", "Because every conversation with you, from our first one in 'drja' to our last one, is my favorite.", "Because you make me want to be the best version of myself.", "Because I love watching you get lost in your coloring and painting.", "Because you have a gentle heart and a fierce spirit.", "Because you make the holidays, especially Christmas, feel magical.", "Because you are not only my wife but my best friend.", "Because you are unapologetically you.", "Because you trust me with your heart.", "Because you have a unique way of looking at the world that fascinates me.", "Because you make me feel more loved than I ever thought possible.", "Because you are the person I want to share every success and every failure with.", "Because you have an incredible sense of style.", "Because you are the calm in my storm.", "Because you are the family I choose, every single day.", "Because my life truly began the day I met you." ]
+    };
 
-    // --- Password Gate Logic (for index.html) ---
-    if (pagePath === '/' || pagePath.endsWith('index.html')) {
-        const passwordInput = document.getElementById('passwordInput');
-        const unlockButton = document.getElementById('unlockButton');
-        const errorMessage = document.getElementById('errorMessage');
-
-        // This is a simple front-end password. It can be seen in the code.
-        // For a real secret, you'd use proper authentication.
-        // We will make this editable in the admin panel later.
-        const correctPassword = 'drja'; 
-
-        unlockButton.addEventListener('click', () => {
-            if (passwordInput.value === correctPassword) {
-                // Store a token in session storage to remember the login
-                sessionStorage.setItem('authenticated', 'true');
-                window.location.href = 'home.html';
-            } else {
-                errorMessage.style.display = 'block';
-                passwordInput.value = '';
-            }
-        });
-        passwordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') unlockButton.click();
+    // --- Password Page Logic ---
+    const passwordForm = document.getElementById('password-form');
+    if (passwordForm) {
+        passwordForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const password = document.getElementById('password').value;
+            if (password === siteConfig.password) { window.location.href = 'home.html'; } 
+            else { alert('Incorrect password. The hint is on the card I gave you!'); }
         });
     }
 
-    // --- Authentication Check for other pages ---
-    if (!pagePath.endsWith('index.html') && pagePath !== '/') {
-        if (sessionStorage.getItem('authenticated') !== 'true') {
-            window.location.href = 'index.html';
-        }
-    }
-    
-    // --- 27 Reasons Page Logic (for reasons.html) ---
-    if (pagePath.endsWith('reasons.html')) {
-        const reasonsGrid = document.getElementById('reasonsGrid');
-        // In a real app, you'd fetch this from a server/CMS.
-        // We will replace this with a fetch to a JSON file the CMS can edit.
-        const reasons = [
-            "1. The way your eyes crinkle when you genuinely smile.",
-            "2. How you can make even a simple Tuesday feel special.",
-            "3. Your ridiculously specific coffee order.",
-            "4. The fact that you always know when I need a hug, without me saying a word.",
-            "5. Your unwavering support for my wildest dreams.",
-            "6. How you get completely lost in a good book.",
-            "7. The sound of your laugh when you're trying not to be loud.",
-            "8. Your kindness to strangers and service staff.",
-            "9. You always steal the blankets, but I don't really mind.",
-            "10. The way you hum when you're cooking.",
-            "11. Your incredible strength and resilience when things get tough.",
-            "12. How you care for your two little dogs like they're our children.",
-            "13. Your passion for learning new things, whether it's painting or a new recipe.",
-            "14. You make me want to be a better man.",
-            "15. The little notes you sometimes leave for me to find.",
-            "16. How you can be both the most elegant and the silliest person in the room.",
-            "17. Your terrible-but-adorable dance moves.",
-            "18. You always give the best, most thoughtful gifts.",
-            "19. Your ability to see the good in everyone.",
-            "20. The way you look when you're sleeping peacefully.",
-            "21. You're not afraid to call me out when I'm wrong.",
-            "22. The quiet comfort of just being in the same room with you.",
-            "23. Your incredible, sometimes scary, intelligence.",
-            "24. How you remember the small details about people.",
-            "25. The way you talk about the things you're passionate about.",
-            "26. You feel like home.",
-            "27. Because every day with you is my new favorite day."
-        ];
-
-        reasons.forEach(reason => {
-            const card = document.createElement('div');
-            card.className = 'reason-card';
-            const [number, text] = reason.split('. ');
-            card.innerHTML = `<div class="number">${number}</div><p>${text}</p>`;
-            reasonsGrid.appendChild(card);
+    // --- Reasons Page Logic ---
+    const reasonsGrid = document.getElementById('reasons-grid');
+    if (reasonsGrid) {
+        siteConfig.reasons.forEach((reason, index) => {
+            const reasonBox = document.createElement('div');
+            reasonBox.className = 'reason-box';
+            const reasonBoxInner = document.createElement('div');
+            reasonBoxInner.className = 'reason-box-inner';
+            const reasonBoxFront = document.createElement('div');
+            reasonBoxFront.className = 'reason-box-front';
+            reasonBoxFront.innerHTML = `<div class="reason-number">${index + 1}</div><div>♥</div>`;
+            const reasonBoxBack = document.createElement('div');
+            reasonBoxBack.className = 'reason-box-back';
+            reasonBoxBack.innerHTML = `<p>${reason}</p>`;
+            reasonBoxInner.appendChild(reasonBoxFront);
+            reasonBoxInner.appendChild(reasonBoxBack);
+            reasonBox.appendChild(reasonBoxInner);
+            reasonBox.addEventListener('click', () => { reasonBox.classList.toggle('is-flipped'); });
+            reasonsGrid.appendChild(reasonBox);
         });
     }
 
-    // --- December Wizard Logic (for december.html) ---
-    if (pagePath.endsWith('december.html')) {
-        const steps = Array.from(document.querySelectorAll('.wizard-step'));
-        const form = document.querySelector('form');
+    // --- December Page Wizard Logic ---
+    const wizard = document.getElementById('december-wizard');
+    if (wizard) {
+        const steps = wizard.querySelectorAll('.wizard-step');
+        let currentStep = 0;
 
-        form.addEventListener('click', (e) => {
-            if (e.target.matches('[data-next]')) {
-                const currentStep = e.target.closest('.wizard-step');
-                const nextStepId = e.target.dataset.next;
-                const nextStep = document.getElementById(nextStepId);
-                
-                // Simple validation
-                const inputs = currentStep.querySelectorAll('input[required], select[required]');
-                let isValid = true;
-                inputs.forEach(input => {
-                    if (input.type === 'radio' && !form.querySelector(`input[name="${input.name}"]:checked`)) {
-                        isValid = false;
-                    }
-                });
-
-                if (isValid && nextStep) {
-                    currentStep.classList.remove('active');
-                    nextStep.classList.add('active');
-                }
+        const goToStep = (stepIndex) => {
+            if (steps[currentStep] && steps[stepIndex]) {
+                steps[currentStep].classList.remove('active-step');
+                steps[stepIndex].classList.add('active-step');
+                currentStep = stepIndex;
             }
+        };
 
-            if (e.target.matches('[data-back]')) {
-                const currentStep = e.target.closest('.wizard-step');
-                const backStepId = e.target.dataset.back;
-                const backStep = document.getElementById(backStepId);
-                if (backStep) {
-                    currentStep.classList.remove('active');
-                    backStep.classList.add('active');
-                }
+        wizard.addEventListener('click', function(e) {
+            if (e.target.matches('[data-next-step]')) {
+                const nextStepIndex = parseInt(e.target.getAttribute('data-next-step'));
+                goToStep(nextStepIndex);
             }
-        });
-
-        // Show 'other' text input when 'Other' is selected
-        form.addEventListener('change', (e) => {
-            if (e.target.tagName === 'SELECT' || e.target.type === 'radio') {
-                const otherInput = e.target.closest('.step-card').querySelector(`input[name="${e.target.name}-other"], input[name="${e.target.name}Other"]`);
-                if (otherInput) {
-                    if (e.target.value.toLowerCase() === 'other') {
-                        otherInput.style.display = 'block';
-                        otherInput.required = true;
-                    } else {
-                        otherInput.style.display = 'none';
-                        otherInput.required = false;
-                    }
-                }
+            if (e.target.matches('[data-prev-step]')) {
+                const prevStepIndex = parseInt(e.target.getAttribute('data-prev-step'));
+                goToStep(prevStepIndex);
             }
         });
     }

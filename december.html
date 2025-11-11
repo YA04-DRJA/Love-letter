@@ -3,130 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>December | December, Us</title>
+    <title>Our December, Together</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="page-container">
-        <nav>
-            <div class="ribbon-pill">a little late, a lot in love</div>
-            <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="reasons.html">27 Reasons</a></li>
-                <li><a href="december.html" class="active">December</a></li>
-            </ul>
-        </nav>
-        <main class="wizard-container">
-            <form name="december-plan" netlify>
-                <!-- Step 0: Intro -->
-                <div class="wizard-step active" id="step0">
-                    <div class="step-card">
-                        <h2>Our December, Together.</h2>
-                        <p>This isn't just about Christmas—it's about us. About creating a month of peace and quiet joy that feels like coming home. I want to build it all around you, to make the small things easy and the quiet things warm. This is my promise. Let's plan a soft December that feels like us.</p>
-                        <div class="button-row">
-                            <button type="button" class="button-primary" data-next="step1">Let's Begin</button>
-                        </div>
+<body class="december-page">
+
+    <div id="december-wizard" class="wizard-container">
+        <!-- Netlify Form Integration -->
+        <form name="december-plan" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display: contents;">
+            <input type="hidden" name="form-name" value="december-plan" />
+            <p class="hidden"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
+
+            <!-- Step 0: The Invitation -->
+            <div id="step-0" class="wizard-step active-step">
+                <div class="wizard-card">
+                    <h1>Our December, Together.</h1>
+                    <p>This isn't just about Christmas—it's about us. About creating a month of peace and quiet joy that feels like coming home. I want to build it all around you, to make the small things easy and the quiet things warm. This is my promise. Let's plan a soft December that feels just like us.</p>
+                    <p class="question">Will you be willing to come and spend December with me?</p>
+                    <div class="button-group">
+                        <button type="button" class="btn-choice" data-next-step="1">Yes, I'd love to</button>
+                        <button type="button" class="btn-choice" data-next-step="1">Yes, of course!</button>
+                        <button type="button" class="btn-choice" data-next-step="1">A thousand times, yes!</button>
+                    </div>
+                    <p class="hint">Hint: The work holiday party is on December 6th, and they allow plus ones! 😉</p>
+                </div>
+            </div>
+
+            <!-- Step 1: The Christmas Tree -->
+            <div id="step-1" class="wizard-step">
+                <div class="wizard-card">
+                    <h2>Our First Christmas Tree</h2>
+                    <div class="form-group">
+                        <p class="question">What should our theme be?</p>
+                        <label><input type="radio" name="tree-theme" value="Classic Reds & Golds"> Classic Reds & Golds</label>
+                        <label><input type="radio" name="tree-theme" value="Winter Whites & Silvers"> Winter Whites & Silvers</label>
+                        <label><input type="radio" name="tree-theme" value="A Mix of Everything"> A Mix of Everything Beautiful</label>
+                        <label><input type="radio" name="tree-theme" value="Other"> Something Else Entirely:</label>
+                        <input type="text" name="tree-theme-other" placeholder="Your beautiful vision here...">
+                    </div>
+                    <div class="form-group">
+                        <p class="question">What feels right for our tree & decorations budget?</p>
+                        <label><input type="radio" name="tree-budget" value="$500"> $500</label>
+                        <label><input type="radio" name="tree-budget" value="$750"> $750</label>
+                        <label><input type="radio" name="tree-budget" value="$1000"> $1000</label>
+                        <label><input type="radio" name="tree-budget" value="$1250"> $1250</label>
+                    </div>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn-secondary" data-prev-step="0">Back</button>
+                        <button type="button" class="btn-primary" data-next-step="2">Next</button>
                     </div>
                 </div>
+            </div>
 
-                <!-- Step 1: Invitation -->
-                <div class="wizard-step" id="step1">
-                    <div class="step-card">
-                        <h3>Will you come spend December with me?</h3>
-                        <div class="options">
-                            <label><input type="radio" name="invitation" value="Yes" required> Yes</label>
-                            <p class="option-hint">My work holiday party is on December 6th, and they allow a +1. I’d be proud to have you there.</p>
-                            <label><input type="radio" name="invitation" value="No"> No, not this time</label>
-                        </div>
-                        <div class="button-row">
-                            <button type="button" class="button-secondary" data-back="step0">Back</button>
-                            <button type="button" class="button-primary" data-next="step2">Next</button>
-                        </div>
+            <!-- Step 2: The Getaway -->
+            <div id="step-2" class="wizard-step">
+                 <div class="wizard-card">
+                    <h2>Our 3-Day Christmas Getaway</h2>
+                     <div class="form-group">
+                        <label>
+                            <input type="radio" name="getaway" value="New York">
+                            <strong>New York City</strong>
+                            <small>We could re-create our 2023 Christmas day trip, but this time, wandering the sparkling streets as husband and wife.</small>
+                        </label>
+                         <label>
+                            <input type="radio" name="getaway" value="Montreal">
+                            <strong>Montréal</strong>
+                            <small>Imagine walking through the cobblestone streets of Old Montréal, with European Christmas markets and a magical, snowy atmosphere.</small>
+                        </label>
+                         <label>
+                            <input type="radio" name="getaway" value="Quebec City">
+                            <strong>Québec City</strong>
+                            <small>It's like stepping into a real-life Dickens village, incredibly romantic and festive. Known as the most Christmassy city in Canada.</small>
+                        </label>
+                         <label>
+                             <input type="radio" name="getaway" value="Other">
+                             <strong>Somewhere Else?</strong>
+                         </label>
+                         <input type="text" name="getaway-other" placeholder="Where is your heart telling you to go?">
+                     </div>
+                     <div class="nav-buttons">
+                        <button type="button" class="btn-secondary" data-prev-step="1">Back</button>
+                        <button type="button" class="btn-primary" data-next-step="3">Next</button>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- Step 3: Windsor Stay -->
+            <div id="step-3" class="wizard-step">
+                <div class="wizard-card">
+                    <h2>Where to Stay in Windsor</h2>
+                    <p class="hint">Just so we can plan, my vacation will likely end around January 3rd or 4th, when I'll head back to Seattle.</p>
+                    <div class="form-group">
+                         <p class="question">Where would you be most comfortable staying?</p>
+                         <label><input type="radio" name="windsor-stay" value="Your Mom's House"> Stay with my mom (I know she would be so happy to have us!)</label>
+                         <label><input type="radio" name="windsor-stay" value="Hotel"> Get a quiet Hotel</label>
+                         <label><input type="radio" name="windsor-stay" value="Airbnb"> Find a cozy Airbnb</label>
+                         <label><input type="radio" name="windsor-stay" value="Other"> Other idea:</label>
+                         <input type="text" name="windsor-stay-other" placeholder="Your suggestion here...">
+                    </div>
+                    <div class="form-group">
+                        <label for="windsor-days" class="question">If we stay with my mom, how many nights would you feel best about?</label>
+                        <input type="text" id="windsor-days" name="windsor-days" placeholder="e.g., 'A couple of nights', 'All of them', etc.">
+                    </div>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn-secondary" data-prev-step="2">Back</button>
+                        <button type="button" class="btn-primary" data-next-step="4">Next</button>
                     </div>
                 </div>
-
-                <!-- Step 2: The Tree -->
-                <div class="wizard-step" id="step2">
-                    <div class="step-card">
-                        <h3>Our Tree</h3>
-                        <label for="tree-theme">What theme should our tree have this year?</label>
-                        <select name="tree-theme" id="tree-theme">
-                            <option>Classic Christmas (reds, golds, greens)</option>
-                            <option>Winter Wonderland (whites, silvers, blues)</option>
-                            <option>Minimalist & Modern (simple, warm lights, wood)</option>
-                            <option value="other">Other (let's talk!)</option>
-                        </select>
-                        <input type="text" name="tree-theme-other" placeholder="What's your idea?" class="other-input">
-
-                        <label for="tree-budget">And what feels right for a tree & decorations budget?</label>
-                        <select name="tree-budget" id="tree-budget">
-                            <option>$150 - Cozy & Simple</option>
-                            <option>$300 - Let's Make It Sparkle</option>
-                            <option>$500+ - All Out Holiday Magic</option>
-                             <option value="other">Other</option>
-                        </select>
-                        <input type="text" name="tree-budget-other" placeholder="What are you thinking?" class="other-input">
-                        
-                        <div class="button-row">
-                            <button type="button" class="button-secondary" data-back="step1">Back</button>
-                            <button type="button" class="button-primary" data-next="step3">Next</button>
-                        </div>
+            </div>
+            
+            <!-- Step 4: Submit -->
+            <div id="step-4" class="wizard-step">
+                <div class="wizard-card">
+                    <h2>Our Perfect December Plan</h2>
+                    <p>Thank you for dreaming with me. I can't wait to make all of this a reality.</p>
+                    <p class="hint">After you hit submit, all your choices will go to your Santa Claus (husband), and he will organize and plan everything just the way you want.</p>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn-secondary" data-prev-step="3">Back</button>
+                        <button type="submit" class="btn-primary">Submit Our Plan</button>
                     </div>
                 </div>
+            </div>
 
-                <!-- Step 3: Christmas Trip -->
-                <div class="wizard-step" id="step3">
-                    <div class="step-card">
-                        <h3>Our Christmas Getaway (3-4 Days)</h3>
-                        <p>Instead of Seattle or Vancouver, let's make a new memory.</p>
-                        <div class="options">
-                            <label><input type="radio" name="trip" value="NYC" required> New York City (Dec 24-27). Ice skating, window shopping, big city lights.</label>
-                            <label><input type="radio" name="trip" value="Montreal" required> Montréal (Dec 27-30). Old world charm, cozy cafes, maybe some snow.</label>
-                            <label><input type="radio" name="trip" value="Quebec" required> Québec City (Dec 24-27). Feels like a European Christmas market.</label>
-                            <label><input type="radio" name="trip" value="Other" required> Other...</label>
-                            <input type="text" name="trip-other" placeholder="Where are you dreaming of?" class="other-input">
-                        </div>
-                        <div class="button-row">
-                            <button type="button" class="button-secondary" data-back="step2">Back</button>
-                            <button type="button" class="button-primary" data-next="step4">Next</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 4: Windsor Stay -->
-                <div class="wizard-step" id="step4">
-                    <div class="step-card">
-                        <h3>And when we're back in town...</h3>
-                        <label for="windsor-stay">Where would you feel most comfortable staying?</label>
-                        <select name="windsor-stay" id="windsor-stay">
-                            <option>My Mom's House (I know, I know... but think of the food!)</option>
-                            <option>A cozy Airbnb just for us</option>
-                            <option>A nice hotel downtown</option>
-                            <option value="other">Other</option>
-                        </select>
-                        <input type="text" name="windsor-stay-other" placeholder="What would make you feel best?" class="other-input">
-                        
-                        <div class="button-row">
-                            <button type="button" class="button-secondary" data-back="step3">Back</button>
-                            <button type="button" class="button-primary" data-next="step5">Next</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 5: Submit -->
-                <div class="wizard-step" id="step5">
-                    <div class="step-card">
-                        <h3>Ready to plan our December?</h3>
-                        <p>After you hit submit, all your choices will be sent to your personal Santa Claus (me!) to make our December perfect. I can't wait to do this with you.</p>
-                        <div class="button-row">
-                             <button type="button" class="button-secondary" data-back="step4">Back</button>
-                             <button type="submit" class="button-primary">Submit Our Plan</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </main>
+        </form>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
