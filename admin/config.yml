@@ -1,0 +1,37 @@
+backend:
+  name: git-gateway
+  branch: main # or master
+
+media_folder: "assets/images" # Where media files will be stored
+public_folder: "/assets/images" # The src attribute for uploaded media
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - file: "_data/settings.json"
+        label: "General Settings"
+        name: "general"
+        fields:
+          - { label: "Website Password", name: "password", widget: "string", default: "drja" }
+          - { label: "Site Title", name: "title", widget: "string", default: "December, Us" }
+
+  - name: "reasons"
+    label: "27 Reasons"
+    folder: "_data/reasons"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Reason Text", name: "reason", widget: "string" }
+    
+  - name: "december_page"
+    label: "December Page Content"
+    files:
+      - file: "_data/december.json"
+        label: "December Page"
+        name: "december"
+        fields:
+          - { label: "Intro Title", name: "intro_title", widget: "string" }
+          - { label: "Intro Paragraph", name: "intro_paragraph", widget: "markdown" }
+          - { label: "Invitation Question", name: "invitation_question", widget: "string" }
+          - { label: "Invitation Hint", name: "invitation_hint", widget: "string" }

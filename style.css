@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap');
+
+:root {
+    --bg-color: #fff7f7;
+    --card-bg: #ffffff;
+    --text-title: #111827;
+    --text-body: #6b7280;
+    --accent-color: #e86b6b;
+    --accent-hover: #d45f5f;
+    --border-color: #f1f1f1;
+    --font-title: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-body);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-title);
+    color: var(--text-title);
+    margin-bottom: 0.5em;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.25rem; }
+h3 { font-size: 1.75rem; }
+
+p {
+    line-height: 1.6;
+    max-width: 65ch;
+}
+
+.subtitle {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+}
+
+.ribbon-pill {
+    background-color: var(--card-bg);
+    color: var(--accent-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    padding: 0.5em 1em;
+    font-size: 0.875rem;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    margin-bottom: 1rem;
+}
+
+/* --- Gate & Page Layout --- */
+.gate-container, .page-container, .wizard-container {
+    width: 100%;
+    max-width: 1100px;
+    text-align: center;
+}
+.page-container, .wizard-container {
+    padding: 2rem;
+}
+.gate-card {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 3rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    max-width: 600px;
+    margin: auto;
+}
+.password-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+#passwordInput {
+    flex-grow: 1;
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+}
+.hint {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin-top: 0.75rem;
+}
+.error {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+/* --- Navigation --- */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+nav a {
+    text-decoration: none;
+    color: var(--text-body);
+    font-weight: 500;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid transparent;
+}
+nav a.active {
+    color: var(--text-title);
+    border-bottom-color: var(--accent-color);
+}
+
+/* --- Reasons Grid --- */
+.reasons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    text-align: left;
+    margin-top: 2rem;
+}
+.reason-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+.reason-card .number {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+/* --- Wizard --- */
+.wizard-step { display: none; }
+.wizard-step.active { display: block; }
+.step-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 3rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    max-width: 760px;
+    margin: auto;
+    text-align: left;
+}
+.step-card h3 { margin-bottom: 1.5rem; }
+.step-card label {
+    display: block;
+    font-weight: 500;
+    color: var(--text-title);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.step-card .options label {
+    font-weight: 400;
+    display: block;
+    margin-top: 1rem;
+}
+.step-card .option-hint {
+    font-size: 0.875rem;
+    padding-left: 1.75rem;
+    margin-top: 0.25rem;
+    opacity: 0.8;
+}
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+.other-input { display: none; margin-top: 0.5rem; width: 100%; }
+
+/* --- Forms & Buttons --- */
+input[type="text"], input[type="password"], select {
+    width: 100%;
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-family: var(--font-body);
+}
+.button-primary, .button-secondary, #unlockButton {
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.button-primary, #unlockButton {
+    background-color: var(--accent-color);
+    color: white;
+}
+.button-primary:hover, #unlockButton:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+}
+.button-secondary {
+    background-color: transparent;
+    color: var(--text-body);
+}
+.button-secondary:hover {
+    background-color: #f0f0f0;
+}

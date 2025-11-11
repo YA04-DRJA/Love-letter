@@ -1,0 +1,3 @@
+# This file tells the build system to include our data folders.
+include:
+  - _data
