@@ -3,24 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | December, Us</title>
-    <link rel="stylesheet" href="style.css">
+    <title>A Love Letter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff7f7;
+            color: #111827;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+        .home-container {
+            text-align: center;
+            max-width: 800px;
+        }
+        .tagline-ribbon {
+            display: inline-block;
+            background-color: white;
+            border: 1px solid #f4c9c9;
+            color: #e86b6b;
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        p.intro {
+            font-size: 1.1rem;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.6;
+        }
+        .navigation-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .nav-card {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            text-decoration: none;
+            color: inherit;
+            width: 280px;
+            transition: all 0.3s ease;
+        }
+        .nav-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+        }
+        .nav-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+        .nav-card p {
+            font-size: 0.95rem;
+            color: #6b7280;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="page-container">
-        <nav>
-            <div class="ribbon-pill">a little late, a lot in love</div>
-            <ul>
-                <li><a href="home.html" class="active">Home</a></li>
-                <li><a href="reasons.html">27 Reasons</a></li>
-                <li><a href="december.html">December</a></li>
-            </ul>
-        </nav>
-        <main class="hero-content">
-            <h1>December, us</h1>
-            <p class="subtitle">I want this December to feel like you—quiet light, warm hands, and small, honest moments. This page is a love letter with your name on it. Tell me what feels right, and I’ll wrap our time around it. You’re the center; I’m your home team.</p>
-            <a href="december.html" class="button-primary">Plan Our December</a>
-        </main>
+    <div class="home-container">
+        <div class="tagline-ribbon">a little late, a lot in love</div>
+        <h1>Welcome, my love.</h1>
+        <p class="intro">I wanted to create a small, private world just for us. This is a simple, interactive love letter that I truly hope you'll enjoy exploring.</p>
+        
+        <div class="navigation-cards">
+            <a href="reasons.html" class="nav-card">
+                <h2>27 Reasons</h2>
+                <p>A few of the countless reasons why my world is better with you in it.</p>
+            </a>
+            <a href="december.html" class="nav-card">
+                <h2>Our December</h2>
+                <p>Let's plan a month of peace and quiet joy that feels just like us.</p>
+            </a>
+        </div>
     </div>
 </body>
 </html>
