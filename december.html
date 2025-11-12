@@ -1,379 +1,432 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
   <title>Our December, Together</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    body { font-family: 'Poppins', sans-serif; background-color: #fff7f7; color: #111827; margin: 0; padding: 2rem; transition: background-image 0.5s ease-in-out; }
-    .hidden { display: none; }
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    /* Buttons */
-    button, .btn-primary, .btn-secondary, .btn-choice {
-      background-color: #e86b6b; color: white; padding: 0.8rem 1.5rem; border: none; border-radius: 12px;
-      font-weight: bold; cursor: pointer; transition: all 0.3s ease; font-family: 'Poppins', sans-serif;
-    }
-    button:hover, .btn-primary:hover, .btn-choice:hover { background-color: #d35a5a; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(232, 107, 107, 0.4); }
+  <meta name="description" content="Plan our soft, cozy December together — choose a tree theme, a Christmas getaway with flexible dates and duration, and where to stay.">
+  <meta property="og:title" content="Our December, Together">
+  <meta property="og:description" content="Plan our soft, cozy December together — choose a tree theme, a Christmas getaway with flexible dates and duration, and where to stay.">
+  <meta property="og:image" content="https://res.cloudinary.com/dimqqmfx6/image/upload/v1762841028/generated_flux_3169_1762841027_0_gcs2tw.png">
+  <meta property="og:type" content="website">
 
-    body.december-page {
-      background-image: url('https://res.cloudinary.com/dimqqmfx6/image/upload/v1762841028/generated_flux_3169_1762841027_0_gcs2tw.png');
-      background-size: cover; background-position: center center; background-attachment: fixed;
-      display: flex; align-items: center; justify-content: center; min-height: 100vh;
-    }
+  <link rel="icon" href="https://cdn.simulationtheory.ai/gasset/?asset=img&prompt=soft%20pink%20heart%20icon%20on%20cream%20background&w=64&h=64&style=professional" sizes="64x64">
 
-    .wizard-container { width: 100%; max-width: 760px; }
-    .wizard-step { display: none; animation: fadeIn 0.8s ease-in-out; }
-    .wizard-step.active-step { display: block; }
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/chat/cdn/animate.min.css" rel="stylesheet">
 
-    .wizard-card {
-      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 3rem; border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: left;
-    }
-    .wizard-card h1, .wizard-card h2 { font-family: 'Playfair Display', serif; text-align: center; color: #111827; font-size: 2.8rem; margin-bottom: 1.5rem; }
-    .wizard-card h2 { font-size: 2.2rem; }
-    .wizard-card p { color: #6b7280; line-height: 1.6; text-align: center; margin-bottom: 2rem; }
-    .wizard-card p.question { font-weight: bold; color: #111827; margin-bottom: 1rem; text-align: left; }
-    .wizard-card p.hint { font-size: 0.9rem; text-align: center; margin-top: 2rem; margin-bottom: 0; }
-
-    .button-group { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-    .button-group .btn-choice { flex-grow: 1; }
-
-    .nav-buttons { display: flex; justify-content: space-between; margin-top: 2rem; border-top: 1px solid #f1f1f1; padding-top: 2rem; }
-    .btn-secondary { background-color: transparent; color: #e86b6b; border: 1px solid #f4c9c9; }
-    .btn-secondary:hover { background-color: #fff7f7; color: #e86b6b; box-shadow: none; transform: translateY(0); }
-
-    .form-group { margin-bottom: 2rem; }
-    .form-group label { display: block; background: #fff; padding: 1rem; border: 1px solid #f1f1f1; border-radius: 12px; margin-bottom: 0.5rem; cursor: pointer; transition: all 0.2s ease; }
-    .form-group label:hover { border-color: #f4c9c9; background: #fff7f7; }
-    .form-group input[type="radio"] { margin-right: 0.8rem; }
-    .form-group input[type="text"] { width: 100%; padding: 0.8rem 1rem; border: 1px solid #e6e6e6; border-radius: 12px; margin-top: 0.5rem; }
-    .form-group label small { display: block; color: #6b7280; margin-top: 0.25rem; margin-left: 28px; }
-
-    /* Getaway sub-options */
-    .trip-choice small { display:block; color:#6b7280; margin-top:4px; }
-    .trip-options { padding: 12px 16px; margin: 6px 0 18px 36px; border-left: 2px solid #f4c9c9; }
-    .sub-question { margin: 0 0 8px; font-weight: 600; color:#111827; }
-    .sub-row { display: flex; gap: 10px; align-items: center; margin: 10px 0; flex-wrap: wrap; }
-    .sub-row input[type="text"], .sub-row select { padding: 8px 10px; border:1px solid #e6e6e6; border-radius:10px; }
-
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  </style>
+  <script src="/chat/cdn/papaparse.min.js"></script>
 </head>
-<body class="december-page">
-  <div id="december-wizard" class="wizard-container">
+<body class="min-h-screen bg-cover bg-center bg-fixed flex items-center justify-center"
+      style="background-image:url('https://res.cloudinary.com/dimqqmfx6/image/upload/v1762841028/generated_flux_3169_1762841027_0_gcs2tw.png')">
 
-    <!-- Hidden registration form so Netlify detects the form at build time -->
+  <div id="app" class="w-full max-w-3xl p-4 sm:p-6">
+    <!-- Hidden static form so Netlify detects fields at build time -->
     <form name="december-plan" netlify netlify-honeypot="bot-field" hidden>
-      <input type="text" name="tree-theme" />
-      <input type="text" name="tree-theme-other" />
-      <input type="text" name="tree-budget" />
-      <input type="text" name="getaway" />
-      <input type="text" name="getaway-other" />
-      <input type="text" name="trip-quick-range" />
-      <input type="text" name="trip-start" />
-      <input type="text" name="trip-end" />
-      <input type="text" name="trip-duration" />
-      <input type="text" name="trip-duration-other" />
-      <input type="text" name="windsor-stay" />
-      <input type="text" name="windsor-stay-other" />
-      <input type="text" name="windsor-days" />
+      <input type="text" name="tree-theme">
+      <input type="text" name="tree-theme-other">
+      <input type="text" name="tree-budget">
+      <input type="text" name="getaway">
+      <input type="text" name="getaway-other">
+      <input type="text" name="trip-quick-range">
+      <input type="text" name="trip-start">
+      <input type="text" name="trip-end">
+      <input type="text" name="trip-duration">
+      <input type="text" name="trip-duration-other">
+      <input type="text" name="windsor-stay">
+      <input type="text" name="windsor-stay-other">
+      <input type="text" name="windsor-days">
     </form>
 
-    <!-- Visible, multi-step form -->
-    <form id="december-form" name="december-plan" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
-      <input type="hidden" name="form-name" value="december-plan" />
-      <p class="hidden"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
+    <form id="december-form" name="december-plan" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html" novalidate class="bg-white/95 backdrop-blur rounded-2xl shadow-xl p-6 sm:p-10">
+      <input type="hidden" name="form-name" value="december-plan">
+      <p class="hidden"><label>Don’t fill this out if you’re human: <input name="bot-field"></label></p>
 
       <!-- Step 0 -->
-      <div id="step-0" class="wizard-step active-step">
-        <div class="wizard-card">
-          <h1>Our December, Together.</h1>
-          <p>This isn't just about Christmas—it's about us. About creating a month of peace and quiet joy that feels like coming home. I want to build it all around you, to make the small things easy and the quiet things warm. This is my promise. Let's plan a soft December that feels just like us.</p>
-          <p class="question">Will you be willing to come and spend December with me?</p>
-          <div class="button-group">
-            <button type="button" class="btn-choice" data-next-step="1">Yes, I'd love to</button>
-            <button type="button" class="btn-choice" data-next-step="1">Yes, of course!</button>
-            <button type="button" class="btn-choice" data-next-step="1">A thousand times, yes!</button>
-          </div>
-          <p class="hint">Hint: The work holiday party is on December 6th, and they allow plus ones! 😉</p>
+      <section id="step-0" class="step active">
+        <h1 class="text-3xl sm:text-4xl font-serif font-bold text-gray-900 text-center mb-4">Our December, Together.</h1>
+        <p class="text-gray-600 text-center mb-8">This isn't just about Christmas—it's about us. A month of peace and quiet joy that feels like coming home. Let’s plan it softly, around you.</p>
+
+        <p class="text-gray-900 font-semibold mb-4 text-center">Will you come spend December with me?</p>
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
+          <button type="button" class="px-5 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-semibold transition-all shadow-md hover:shadow-lg" data-next-step="1">Yes, I'd love to</button>
+          <button type="button" class="px-5 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-semibold transition-all shadow-md hover:shadow-lg" data-next-step="1">Yes, of course!</button>
+          <button type="button" class="px-5 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-semibold transition-all shadow-md hover:shadow-lg" data-next-step="1">A thousand times, yes!</button>
         </div>
-      </div>
+        <p class="text-sm text-gray-500 mt-6 text-center">Hint: The work holiday party is on December 6th, and they allow plus ones! 😉</p>
+      </section>
 
       <!-- Step 1 -->
-      <div id="step-1" class="wizard-step">
-        <div class="wizard-card">
-          <h2>Our First Christmas Tree</h2>
-          <div class="form-group">
-            <p class="question">What should our theme be?</p>
-            <label><input type="radio" name="tree-theme" value="Classic Reds & Golds"> Classic Reds & Golds</label>
-            <label><input type="radio" name="tree-theme" value="Winter Whites & Silvers"> Winter Whites & Silvers</label>
-            <label><input type="radio" name="tree-theme" value="A Mix of Everything"> A Mix of Everything Beautiful</label>
-            <label><input type="radio" name="tree-theme" value="Other"> Something Else Entirely:</label>
-            <input type="text" name="tree-theme-other" placeholder="Your beautiful vision here...">
-          </div>
-          <div class="form-group">
-            <p class="question">What feels right for our tree & decorations budget?</p>
-            <label><input type="radio" name="tree-budget" value="$500"> $500</label>
-            <label><input type="radio" name="tree-budget" value="$750"> $750</label>
-            <label><input type="radio" name="tree-budget" value="$1000"> $1000</label>
-            <label><input type="radio" name="tree-budget" value="$1250"> $1250</label>
-          </div>
-          <div class="nav-buttons">
-            <button type="button" class="btn-secondary" data-prev-step="0">Back</button>
-            <button type="button" class="btn-primary" data-next-step="2">Next</button>
+      <section id="step-1" class="step hidden">
+        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-gray-900 text-center mb-6">Our First Christmas Tree</h2>
+
+        <div class="mb-6">
+          <p class="font-semibold text-gray-900 mb-3">What should our theme be?</p>
+          <div class="space-y-3">
+            <label class="flex items-start gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition">
+              <input type="radio" name="tree-theme" value="Classic Reds & Golds" class="mt-1">
+              <span><b>Classic Reds & Golds</b></span>
+            </label>
+            <label class="flex items-start gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition">
+              <input type="radio" name="tree-theme" value="Winter Whites & Silvers" class="mt-1">
+              <span><b>Winter Whites & Silvers</b></span>
+            </label>
+            <label class="flex items-start gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition">
+              <input type="radio" name="tree-theme" value="A Mix of Everything" class="mt-1">
+              <span><b>A Mix of Everything Beautiful</b></span>
+            </label>
+            <div class="p-4 border border-gray-100 rounded-xl">
+              <label class="flex items-start gap-3">
+                <input type="radio" name="tree-theme" value="Other" class="mt-1">
+                <span><b>Something Else Entirely</b></span>
+              </label>
+              <input type="text" name="tree-theme-other" placeholder="Your beautiful vision here..." class="w-full mt-3 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-300">
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Step 2: Our Christmas Getaway -->
-      <div id="step-2" class="wizard-step">
-        <div class="wizard-card">
-          <h2>Our Christmas Getaway</h2>
-
-          <div class="form-group">
-            <!-- NYC -->
-            <label class="trip-choice">
-              <input type="radio" name="getaway" value="New York City">
-              <strong>New York City</strong>
-              <small>We could re-create our 2023 Christmas day trip, but this time, wandering the sparkling streets as husband and wife.</small>
+        <div>
+          <p class="font-semibold text-gray-900 mb-3">What feels right for our tree & decorations budget?</p>
+          <div class="space-y-3">
+            <label class="flex items-center gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition">
+              <input type="radio" name="tree-budget" value="$500">
+              <span>$500</span>
             </label>
-            <div class="trip-options hidden">
-              <p class="sub-question">When would you like to go?</p>
-              <label><input type="radio" name="trip-quick-range" value="Dec 23–27"> Dec 23–27</label>
-              <label><input type="radio" name="trip-quick-range" value="Dec 27–30"> Dec 27–30</label>
-              <label><input type="radio" name="trip-quick-range" value="Dec 30–Jan 2"> Dec 30–Jan 2</label>
-              <div class="sub-row">
-                <span>Or choose your own:</span>
-                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)">
-                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)">
-              </div>
-              <div class="sub-row">
-                <label for="trip-duration">Preferred duration</label>
-                <select id="trip-duration" name="trip-duration">
-                  <option value="">Choose…</option>
-                  <option value="2 days">2 days</option>
-                  <option value="3 days">3 days</option>
-                  <option value="4 days">4 days</option>
-                  <option value="5 days">5 days</option>
-                  <option value="Other">Other (specify below)</option>
-                </select>
-                <input type="text" name="trip-duration-other" placeholder="If ‘Other’, tell me how many days">
-              </div>
-            </div>
-
-            <!-- Montreal -->
-            <label class="trip-choice">
-              <input type="radio" name="getaway" value="Montréal">
-              <strong>Montréal</strong>
-              <small>Imagine walking through the cobblestone streets of Old Montréal, with European Christmas markets and a magical, snowy atmosphere.</small>
+            <label class="flex items-center gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition">
+              <input type="radio" name="tree-budget" value="$750">
+              <span>$750</span>
             </label>
-            <div class="trip-options hidden">
-              <p class="sub-question">When would you like to go?</p>
-              <label><input type="radio" name="trip-quick-range" value="Dec 23–27"> Dec 23–27</label>
-              <label><input type="radio" name="trip-quick-range" value="Dec 27–30"> Dec 27–30</label>
-              <label><input type="radio" name="trip-quick-range" value="Dec 30–Jan 2"> Dec 30–Jan 2</label>
-              <div class="sub-row">
-                <span>Or choose your own:</span>
-                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)">
-                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)">
-              </div>
-              <div class="sub-row">
-                <label for="trip-duration-2">Preferred duration</label>
-                <select id="trip-duration-2" name="trip-duration">
-                  <option value="">Choose…</option>
-                  <option value="2 days">2 days</option>
-                  <option value="3 days">3 days</option>
-                  <option value="4 days">4 days</option>
-                  <option value="5 days">5 days</option>
-                  <option value="Other">Other (specify below)</option>
-                </select>
-                <input type="text" name="trip-duration-other" placeholder="If ‘Other’, tell me how many days">
-              </div>
-            </div>
-
-            <!-- Québec City -->
-            <label class="trip-choice">
-              <input type="radio" name="getaway" value="Québec City">
-              <strong>Québec City</strong>
-              <small>It's like stepping into a real-life Dickens village, incredibly romantic and festive. Known as the most Christmassy city in Canada.</small>
+            <label class="flex items-center gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition">
+              <input type="radio" name="tree-budget" value="$1000">
+              <span>$1000</span>
             </label>
-            <div class="trip-options hidden">
-              <p class="sub-question">When would you like to go?</p>
-              <label><input type="radio" name="trip-quick-range" value="Dec 23–27"> Dec 23–27</label>
-              <label><input type="radio" name="trip-quick-range" value="Dec 27–30"> Dec 27–30</label>
-              <label><input type="radio" name="trip-quick-range" value="Dec 30–Jan 2"> Dec 30–Jan 2</label>
-              <div class="sub-row">
-                <span>Or choose your own:</span>
-                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)">
-                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)">
-              </div>
-              <div class="sub-row">
-                <label for="trip-duration-3">Preferred duration</label>
-                <select id="trip-duration-3" name="trip-duration">
-                  <option value="">Choose…</option>
-                  <option value="2 days">2 days</option>
-                  <option value="3 days">3 days</option>
-                  <option value="4 days">4 days</option>
-                  <option value="5 days">5 days</option>
-                  <option value="Other">Other (specify below)</option>
-                </select>
-                <input type="text" name="trip-duration-other" placeholder="If ‘Other’, tell me how many days">
-              </div>
-            </div>
-
-            <!-- Somewhere else -->
-            <label class="trip-choice">
-              <input type="radio" name="getaway" value="Other">
-              <strong>Somewhere Else?</strong>
+            <label class="flex items-center gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition">
+              <input type="radio" name="tree-budget" value="$1250">
+              <span>$1250</span>
             </label>
-            <div class="trip-options hidden">
-              <div class="sub-row">
-                <input type="text" name="getaway-other" placeholder="Where is your heart telling you to go?">
-              </div>
-              <p class="sub-question">When would you like to go?</p>
-              <label><input type="radio" name="trip-quick-range" value="Dec 23–27"> Dec 23–27</label>
-              <label><input type="radio" name="trip-quick-range" value="Dec 27–30"> Dec 27–30</label>
-              <label><input type="radio" name="trip-quick-range" value="Dec 30–Jan 2"> Dec 30–Jan 2</label>
-              <div class="sub-row">
-                <span>Or choose your own:</span>
-                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)">
-                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)">
-              </div>
-              <div class="sub-row">
-                <label for="trip-duration-4">Preferred duration</label>
-                <select id="trip-duration-4" name="trip-duration">
-                  <option value="">Choose…</option>
-                  <option value="2 days">2 days</option>
-                  <option value="3 days">3 days</option>
-                  <option value="4 days">4 days</option>
-                  <option value="5 days">5 days</option>
-                  <option value="Other">Other (specify below)</option>
-                </select>
-                <input type="text" name="trip-duration-other" placeholder="If ‘Other’, tell me how many days">
-              </div>
-            </div>
-          </div>
-
-          <div class="nav-buttons">
-            <button type="button" class="btn-secondary" data-prev-step="1">Back</button>
-            <button type="button" class="btn-primary" data-next-step="3">Next</button>
           </div>
         </div>
-      </div>
+
+        <div class="flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
+          <button type="button" class="px-5 py-3 rounded-xl border border-rose-200 text-rose-600 bg-white hover:bg-rose-50 transition" data-prev-step="0">Back</button>
+          <button type="button" class="px-5 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-semibold transition shadow-md" data-next-step="2">Next</button>
+        </div>
+      </section>
+
+      <!-- Step 2: Getaway -->
+      <section id="step-2" class="step hidden">
+        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-gray-900 text-center mb-6">Our Christmas Getaway</h2>
+
+        <div class="space-y-4">
+          <!-- NYC -->
+          <div>
+            <label class="flex items-start gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition cursor-pointer trip-choice">
+              <input type="radio" name="getaway" value="New York City" class="mt-1">
+              <div>
+                <b>New York City</b>
+                <p class="text-sm text-gray-600 mt-1">We could re-create our 2023 Christmas day trip, but this time, wandering the sparkling streets as husband and wife.</p>
+              </div>
+            </label>
+            <div class="trip-options hidden pl-6 border-l-2 border-rose-200 mt-2">
+              <p class="font-semibold text-gray-900 mt-2 mb-2">When would you like to go?</p>
+              <div class="flex flex-wrap gap-3">
+                <label class="px-3 py-2 border border-gray-200 rounded-lg cursor-pointer">
+                  <input type="radio" name="trip-quick-range" value="Dec 23–27" class="mr-2"> Dec 23–27
+                </label>
+                <label class="px-3 py-2 border border-gray-200 rounded-lg cursor-pointer">
+                  <input type="radio" name="trip-quick-range" value="Dec 27–30" class="mr-2"> Dec 27–30
+                </label>
+                <label class="px-3 py-2 border border-gray-200 rounded-lg cursor-pointer">
+                  <input type="radio" name="trip-quick-range" value="Dec 30–Jan 2" class="mr-2"> Dec 30–Jan 2
+                </label>
+              </div>
+              <div class="flex flex-wrap items-center gap-3 mt-3">
+                <span class="text-sm text-gray-700">Or choose your own:</span>
+                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)" class="px-3 py-2 border border-gray-200 rounded-lg">
+                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)" class="px-3 py-2 border border-gray-200 rounded-lg">
+              </div>
+              <div class="flex flex-wrap items-center gap-3 mt-3">
+                <label class="text-sm font-medium text-gray-800" for="trip-duration">Preferred duration</label>
+                <select id="trip-duration" name="trip-duration" class="px-3 py-2 border border-gray-200 rounded-lg">
+                  <option value="">Choose…</option>
+                  <option value="2 days">2 days</option>
+                  <option value="3 days">3 days</option>
+                  <option value="4 days">4 days</option>
+                  <option value="5 days">5 days</option>
+                  <option value="Other">Other (specify below)</option>
+                </select>
+                <input type="text" name="trip-duration-other" placeholder="If ‘Other’, how many days?" class="px-3 py-2 border border-gray-200 rounded-lg grow">
+              </div>
+            </div>
+          </div>
+
+          <!-- Montreal -->
+          <div>
+            <label class="flex items-start gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition cursor-pointer trip-choice">
+              <input type="radio" name="getaway" value="Montréal" class="mt-1">
+              <div>
+                <b>Montréal</b>
+                <p class="text-sm text-gray-600 mt-1">Cobblestone streets of Old Montréal, European Christmas markets, and a magical snowy atmosphere.</p>
+              </div>
+            </label>
+            <div class="trip-options hidden pl-6 border-l-2 border-rose-200 mt-2">
+              <p class="font-semibold text-gray-900 mt-2 mb-2">When would you like to go?</p>
+              <div class="flex flex-wrap gap-3">
+                <label class="px-3 py-2 border border-gray-200 rounded-lg cursor-pointer">
+                  <input type="radio" name="trip-quick-range" value="Dec 23–27" class="mr-2"> Dec 23–27
+                </label>
+                <label class="px-3 py-2 border border-gray-200 rounded-lg cursor-pointer">
+                  <input type="radio" name="trip-quick-range" value="Dec 27–30" class="mr-2"> Dec 27–30
+                </label>
+                <label class="px-3 py-2 border border-gray-200 rounded-lg cursor-pointer">
+                  <input type="radio" name="trip-quick-range" value="Dec 30–Jan 2" class="mr-2"> Dec 30–Jan 2
+                </label>
+              </div>
+              <div class="flex flex-wrap items-center gap-3 mt-3">
+                <span class="text-sm text-gray-700">Or choose your own:</span>
+                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)" class="px-3 py-2 border border-gray-200 rounded-lg">
+                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)" class="px-3 py-2 border border-gray-200 rounded-lg">
+              </div>
+              <div class="flex flex-wrap items-center gap-3 mt-3">
+                <label class="text-sm font-medium text-gray-800" for="trip-duration-2">Preferred duration</label>
+                <select id="trip-duration-2" name="trip-duration" class="px-3 py-2 border border-gray-200 rounded-lg">
+                  <option value="">Choose…</option>
+                  <option value="2 days">2 days</option>
+                  <option value="3 days">3 days</option>
+                  <option value="4 days">4 days</option>
+                  <option value="5 days">5 days</option>
+                  <option value="Other">Other (specify below)</option>
+                </select>
+                <input type="text" name="trip-duration-other" placeholder="If ‘Other’, how many days?" class="px-3 py-2 border border-gray-200 rounded-lg grow">
+              </div>
+            </div>
+          </div>
+
+          <!-- Québec City -->
+          <div>
+            <label class="flex items-start gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition cursor-pointer trip-choice">
+              <input type="radio" name="getaway" value="Québec City" class="mt-1">
+              <div>
+                <b>Québec City</b>
+                <p class="text-sm text-gray-600 mt-1">Like a real-life Dickens village—romantic and festive. Known as the most Christmassy city in Canada.</p>
+              </div>
+            </label>
+            <div class="trip-options hidden pl-6 border-l-2 border-rose-200 mt-2">
+              <p class="font-semibold text-gray-900 mt-2 mb-2">When would you like to go?</p>
+              <div class="flex flex-wrap gap-3">
+                <label class="px-3 py-2 border border-gray-200 rounded-lg cursor-pointer">
+                  <input type="radio" name="trip-quick-range" value="Dec 23–27" class="mr-2"> Dec 23–27
+                </label>
+                <label class="px-3 py-2 border border-gray-200 rounded-lg cursor-pointer">
+                  <input type="radio" name="trip-quick-range" value="Dec 27–30" class="mr-2"> Dec 27–30
+                </label>
+                <label class="px-3 py-2 border border-gray-200 rounded-lg cursor-pointer">
+                  <input type="radio" name="trip-quick-range" value="Dec 30–Jan 2" class="mr-2"> Dec 30–Jan 2
+                </label>
+              </div>
+              <div class="flex flex-wrap items-center gap-3 mt-3">
+                <span class="text-sm text-gray-700">Or choose your own:</span>
+                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)" class="px-3 py-2 border border-gray-200 rounded-lg">
+                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)" class="px-3 py-2 border border-gray-200 rounded-lg">
+              </div>
+              <div class="flex flex-wrap items-center gap-3 mt-3">
+                <label class="text-sm font-medium text-gray-800" for="trip-duration-3">Preferred duration</label>
+                <select id="trip-duration-3" name="trip-duration" class="px-3 py-2 border border-gray-200 rounded-lg">
+                  <option value="">Choose…</option>
+                  <option value="2 days">2 days</option>
+                  <option value="3 days">3 days</option>
+                  <option value="4 days">4 days</option>
+                  <option value="5 days">5 days</option>
+                  <option value="Other">Other (specify below)</option>
+                </select>
+                <input type="text" name="trip-duration-other" placeholder="If ‘Other’, how many days?" class="px-3 py-2 border border-gray-200 rounded-lg grow">
+              </div>
+            </div>
+          </div>
+
+          <!-- Somewhere else -->
+          <div>
+            <label class="flex items-start gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition cursor-pointer trip-choice">
+              <input type="radio" name="getaway" value="Other" class="mt-1">
+              <div>
+                <b>Somewhere Else?</b>
+              </div>
+            </label>
+            <div class="trip-options hidden pl-6 border-l-2 border-rose-200 mt-2">
+              <input type="text" name="getaway-other" placeholder="Where is your heart telling you to go?" class="w-full px-3 py-2 border border-gray-200 rounded-lg">
+              <p class="font-semibold text-gray-900 mt-3 mb-2">When would you like to go?</p>
+              <div class="flex flex-wrap gap-3">
+                <label class="px-3 py-2 border border-gray-200 rounded-lg cursor-pointer">
+                  <input type="radio" name="trip-quick-range" value="Dec 23–27" class="mr-2"> Dec 23–27
+                </label>
+                <label class="px-3 py-2 border border-gray-200 rounded-lg cursor-pointer">
+                  <input type="radio" name="trip-quick-range" value="Dec 27–30" class="mr-2"> Dec 27–30
+                </label>
+                <label class="px-3 py-2 border border-gray-200 rounded-lg cursor-pointer">
+                  <input type="radio" name="trip-quick-range" value="Dec 30–Jan 2" class="mr-2"> Dec 30–Jan 2
+                </label>
+              </div>
+              <div class="flex flex-wrap items-center gap-3 mt-3">
+                <span class="text-sm text-gray-700">Or choose your own:</span>
+                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)" class="px-3 py-2 border border-gray-200 rounded-lg">
+                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)" class="px-3 py-2 border border-gray-200 rounded-lg">
+              </div>
+              <div class="flex flex-wrap items-center gap-3 mt-3">
+                <label class="text-sm font-medium text-gray-800" for="trip-duration-4">Preferred duration</label>
+                <select id="trip-duration-4" name="trip-duration" class="px-3 py-2 border border-gray-200 rounded-lg">
+                  <option value="">Choose…</option>
+                  <option value="2 days">2 days</option>
+                  <option value="3 days">3 days</option>
+                  <option value="4 days">4 days</option>
+                  <option value="5 days">5 days</option>
+                  <option value="Other">Other (specify below)</option>
+                </select>
+                <input type="text" name="trip-duration-other" placeholder="If ‘Other’, how many days?" class="px-3 py-2 border border-gray-200 rounded-lg grow">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
+          <button type="button" class="px-5 py-3 rounded-xl border border-rose-200 text-rose-600 bg-white hover:bg-rose-50 transition" data-prev-step="1">Back</button>
+          <button type="button" class="px-5 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-semibold transition shadow-md" data-next-step="3">Next</button>
+        </div>
+      </section>
 
       <!-- Step 3 -->
-      <div id="step-3" class="wizard-step">
-        <div class="wizard-card">
-          <h2>Where to Stay in Windsor</h2>
-          <p class="hint">Just so we can plan, my vacation will likely end around January 3rd or 4th, when I'll head back to Seattle.</p>
-          <div class="form-group">
-            <p class="question">Where would you be most comfortable staying?</p>
-            <label><input type="radio" name="windsor-stay" value="Your Mom's House"> Stay with my mom (I know she would be so happy to have us!)</label>
-            <label><input type="radio" name="windsor-stay" value="Hotel"> Get a quiet Hotel</label>
-            <label><input type="radio" name="windsor-stay" value="Airbnb"> Find a cozy Airbnb</label>
-            <label><input type="radio" name="windsor-stay" value="Other"> Other idea:</label>
-            <input type="text" name="windsor-stay-other" placeholder="Your suggestion here...">
-          </div>
-          <div class="form-group">
-            <label for="windsor-days" class="question">If we stay with my mom, how many nights would you feel best about?</label>
-            <input type="text" id="windsor-days" name="windsor-days" placeholder="e.g., 'A couple of nights', 'All of them', etc.">
-          </div>
-          <div class="nav-buttons">
-            <button type="button" class="btn-secondary" data-prev-step="2">Back</button>
-            <button type="button" class="btn-primary" data-next-step="4">Next</button>
+      <section id="step-3" class="step hidden">
+        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-gray-900 text-center mb-6">Where to Stay in Windsor</h2>
+        <p class="text-sm text-gray-500 text-center mb-6">My vacation will likely end around January 3rd or 4th; then I’ll head back to Seattle.</p>
+
+        <div class="space-y-3">
+          <label class="flex items-start gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition">
+            <input type="radio" name="windsor-stay" value="Your Mom's House" class="mt-1">
+            <span>Stay with my mom (she would be so happy to have us!)</span>
+          </label>
+          <label class="flex items-start gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition">
+            <input type="radio" name="windsor-stay" value="Hotel" class="mt-1">
+            <span>Get a quiet Hotel</span>
+          </label>
+          <label class="flex items-start gap-3 p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition">
+            <input type="radio" name="windsor-stay" value="Airbnb" class="mt-1">
+            <span>Find a cozy Airbnb</span>
+          </label>
+          <div class="p-4 border border-gray-100 rounded-xl">
+            <label class="flex items-start gap-3">
+              <input type="radio" name="windsor-stay" value="Other" class="mt-1">
+              <span>Other idea:</span>
+            </label>
+            <input type="text" name="windsor-stay-other" placeholder="Your suggestion here..." class="w-full mt-3 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-300">
           </div>
         </div>
-      </div>
+
+        <div class="mt-6">
+          <label for="windsor-days" class="block font-semibold text-gray-900 mb-2">If we stay with my mom, how many nights would you feel best about?</label>
+          <input id="windsor-days" name="windsor-days" type="text" placeholder="e.g., A couple of nights, All of them, etc." class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-300">
+        </div>
+
+        <div class="flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
+          <button type="button" class="px-5 py-3 rounded-xl border border-rose-200 text-rose-600 bg-white hover:bg-rose-50 transition" data-prev-step="2">Back</button>
+          <button type="button" class="px-5 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-semibold transition shadow-md" data-next-step="4">Next</button>
+        </div>
+      </section>
 
       <!-- Step 4 -->
-      <div id="step-4" class="wizard-step">
-        <div class="wizard-card">
-          <h2>Our Perfect December Plan</h2>
-          <p>Thank you for dreaming with me. I can't wait to make all of this a reality.</p>
-          <p class="hint">After you hit submit, all your choices will go to your Santa Claus (husband), and he will organize and plan everything just the way you want.</p>
-          <div class="nav-buttons">
-            <button type="button" class="btn-secondary" data-prev-step="3">Back</button>
-            <button type="submit" class="btn-primary">Submit Our Plan</button>
-          </div>
+      <section id="step-4" class="step hidden">
+        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-gray-900 text-center mb-4">Our Perfect December Plan</h2>
+        <p class="text-gray-600 text-center mb-8">Thank you for dreaming with me. After you hit submit, your choices go straight to your Santa Claus (husband) so he can plan everything just the way you want.</p>
+
+        <div class="flex items-center justify-between mt-2 pt-6 border-t border-gray-100">
+          <button type="button" class="px-5 py-3 rounded-xl border border-rose-200 text-rose-600 bg-white hover:bg-rose-50 transition" data-prev-step="3">Back</button>
+          <button id="submit-btn" type="submit" class="px-5 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-semibold transition shadow-md flex items-center gap-2">
+            <span>Submit Our Plan</span>
+            <span id="spinner" class="hidden animate-spin inline-block w-4 h-4 border-2 border-white/60 border-t-white rounded-full"></span>
+          </button>
         </div>
-      </div>
+      </section>
     </form>
   </div>
 
-  <!-- Scripts -->
   <script>
-    // Step navigation
-    document.addEventListener('DOMContentLoaded', function () {
-      const wizard = document.getElementById('december-wizard');
-      if (wizard) {
-        const steps = wizard.querySelectorAll('.wizard-step');
-        let currentStep = 0;
-        const goToStep = (i) => {
-          steps[currentStep].classList.remove('active-step');
-          steps[i].classList.add('active-step');
-          currentStep = i;
-        };
-        wizard.addEventListener('click', function (e) {
-          if (e.target.matches('[data-next-step]')) {
-            goToStep(parseInt(e.target.getAttribute('data-next-step')));
-          }
-          if (e.target.matches('[data-prev-step]')) {
-            goToStep(parseInt(e.target.getAttribute('data-prev-step')));
-          }
-        });
-      }
-    });
-
-    // Helper to url-encode form data
-    function encode(data) {
-      return Object.keys(data)
-        .map((k) => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
-        .join('&');
-    }
-
-    // Submit via JS to Netlify, then redirect manually
-    const form = document.getElementById('december-form');
-    if (form) {
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const data = { 'form-name': form.getAttribute('name') };
-        formData.forEach((value, key) => (data[key] = value));
-
-        fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: encode(data)
-        })
-          .then(() => { window.location.href = 'thank-you.html'; })
-          .catch((err) => {
-            console.error('Submission failed:', err);
-            alert('Sorry, something went wrong submitting the form. Please try again.');
-          });
+    document.addEventListener('DOMContentLoaded', () => {
+      // Step navigation
+      const steps = Array.from(document.querySelectorAll('.step'));
+      let current = 0;
+      const showStep = (i) => {
+        steps[current].classList.add('hidden');
+        steps[current].classList.remove('active');
+        steps[i].classList.remove('hidden');
+        steps[i].classList.add('active');
+        current = i;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+      document.body.addEventListener('click', (e) => {
+        const next = e.target.closest('[data-next-step]');
+        const prev = e.target.closest('[data-prev-step]');
+        if (next) { showStep(parseInt(next.getAttribute('data-next-step'), 10)); }
+        if (prev) { showStep(parseInt(prev.getAttribute('data-prev-step'), 10)); }
       });
-    }
-  </script>
 
-  <script>
-    // Reveal the date options under the selected destination
-    document.addEventListener('DOMContentLoaded', function () {
-      const tripChoices = document.querySelectorAll('.trip-choice input[name="getaway"]');
-
-      function hideAllTripOptions() {
+      // Getaway: reveal sub-options underneath selected destination
+      const getawayRadios = document.querySelectorAll('.trip-choice input[name="getaway"]');
+      const hideAllTripOptions = () => {
         document.querySelectorAll('.trip-options').forEach(el => el.classList.add('hidden'));
         document.querySelectorAll('input[name="trip-quick-range"]').forEach(r => r.checked = false);
-      }
-
-      tripChoices.forEach((radio) => {
+      };
+      getawayRadios.forEach(radio => {
         radio.addEventListener('change', () => {
           hideAllTripOptions();
-          const optionsBlock = radio.closest('label.trip-choice').nextElementSibling;
-          if (optionsBlock && optionsBlock.classList.contains('trip-options')) {
-            optionsBlock.classList.remove('hidden');
+          const block = radio.closest('.trip-choice').nextElementSibling;
+          if (block && block.classList.contains('trip-options')) {
+            block.classList.remove('hidden');
           }
         });
       });
+
+      // Netlify submit with graceful loading and error handling
+      const form = document.getElementById('december-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const spinner = document.getElementById('spinner');
+
+      function encode(data) {
+        return Object.keys(data).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k])).join('&');
+      }
+
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          // Basic validation: ensure a getaway choice is recorded if we are at final step
+          const getaway = form.querySelector('input[name="getaway"]:checked');
+          if (!getaway) {
+            alert('Please choose a getaway option.');
+            showStep(2);
+            return;
+          }
+
+          submitBtn.disabled = true;
+          spinner.classList.remove('hidden');
+
+          try {
+            const fd = new FormData(form);
+            const data = { 'form-name': form.getAttribute('name') };
+            fd.forEach((v, k) => data[k] = v);
+
+            await fetch('/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: encode(data)
+            });
+            window.location.href = 'thank-you.html';
+          } catch (err) {
+            console.error('Submission failed', err);
+            alert('Sorry, something went wrong submitting the form. Please try again.');
+          } finally {
+            submitBtn.disabled = false;
+            spinner.classList.add('hidden');
+          }
+        });
+      }
     });
   </script>
 </body>

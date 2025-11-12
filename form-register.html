@@ -3,19 +3,55 @@
 <head>
   <meta charset="utf-8">
   <title>Register Netlify Form</title>
-</head>
-<body>
-  <!-- Hidden static form so Netlify detects it at build time -->
-  <form name="december-plan" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-    <input type="hidden" name="form-name" value="december-plan">
-    <p hidden><label>Don’t fill this out: <input name="bot-field"></label></p>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Hidden registration page for Netlify form fields used in the December plan." />
+  <link rel="icon" href="https://cdn.simulationtheory.ai/gasset/?asset=img&prompt=soft%20minimal%20heart%20icon%20in%20rose%20beige&w=64&h=64&style=professional" type="image/png" />
 
-    <!-- Tree -->
+  <meta property="og:title" content="Register Netlify Form">
+  <meta property="og:description" content="Hidden registration page for Netlify form fields used in the December plan.">
+  <meta property="og:image" content="https://cdn.simulationtheory.ai/gasset/?asset=img&prompt=soft%20minimal%20heart%20icon%20in%20rose%20beige&w=64&h=64&style=professional">
+  <meta property="og:type" content="website">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/chat/cdn/animate.min.css" rel="stylesheet">
+  <link href="/chat/cdn/all.min.css" rel="stylesheet">
+  <script src="/chat/cdn/all.min.js" crossorigin></script>
+  <style>
+    @font-face {
+      font-family: 'Font Awesome 6 Free';
+      font-path: '/chat/webfonts/fa-regular-400';
+      src: url('/chat/webfonts/fa-regular-400.woff2') format('woff2'),
+           url('/chat/webfonts/fa-regular-400.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Font Awesome 6 Free';
+      font-path: '/chat/webfonts/fa-solid-900';
+      src: url('/chat/webfonts/fa-solid-900.woff2') format('woff2'),
+           url('/chat/webfonts/fa-solid-900.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Font Awesome 6 Brands';
+      font-path: '/chat/webfonts/fa-brands-400';
+      src: url('/chat/webfonts/fa-brands-400.woff2') format('woff2'),
+           url('/chat/webfonts/fa-brands-400.ttf') format('truetype');
+    }
+  </style>
+  <script src="/chat/cdn/papaparse.min.js"></script>
+</head>
+<body class="min-h-screen bg-white text-gray-800 flex items-center justify-center p-6">
+  <div class="text-center space-y-2">
+    <h1 class="text-xl font-bold">Form Registration</h1>
+    <p class="text-sm text-gray-600">This page quietly registers your Netlify form fields at build time.</p>
+  </div>
+
+  <form name="december-plan" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="december-plan">
+    <p class="hidden"><label>Don’t fill this out: <input name="bot-field"></label></p>
+
     <input type="hidden" name="tree-theme">
     <input type="hidden" name="tree-theme-other">
     <input type="hidden" name="tree-budget">
 
-    <!-- Getaway -->
     <input type="hidden" name="getaway">
     <input type="hidden" name="getaway-other">
     <input type="hidden" name="trip-quick-range">
@@ -24,7 +60,6 @@
     <input type="hidden" name="trip-duration">
     <input type="hidden" name="trip-duration-other">
 
-    <!-- Windsor stay -->
     <input type="hidden" name="windsor-stay">
     <input type="hidden" name="windsor-stay-other">
     <input type="hidden" name="windsor-days">
