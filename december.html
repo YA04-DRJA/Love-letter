@@ -49,7 +49,8 @@
     .form-group label { display: block; background: #fff; padding: 1rem; border: 1px solid #f1f1f1; border-radius: 12px; margin-bottom: 0.5rem; cursor: pointer; transition: all 0.2s ease; }
     .form-group label:hover { border-color: #f4c9c9; background: #fff7f7; }
     .form-group input[type="radio"], .form-group input[type="checkbox"] { margin-right: 0.8rem; }
-    .form-group input[type="text"], .form-group select { width: 100%; padding: 0.8rem 1rem; border: 1px solid #e6e6e6; border-radius: 12px; margin-top: 0.5rem; }
+    .form-group input[type="text"], .form-group select, .form-group textarea { width: 100%; padding: 0.8rem 1rem; border: 1px solid #e6e6e6; border-radius: 12px; margin-top: 0.5rem; font-family: 'Poppins', sans-serif; }
+    .form-group textarea { min-height: 100px; resize: vertical; }
 
     /* Getaway sub-options */
     .trip-choice small { display:block; color:#6b7280; margin-top:4px; }
@@ -64,6 +65,18 @@
     .heart-box p:first-child, .heart-box p:last-child { color:#111827; font-weight:600; }
     .heart-box p:last-child { margin-bottom: 0; }
 
+    /* Commitment list */
+    .commitment-list { background:#fff; border:1px solid #f4c9c9; border-radius:12px; padding:16px; margin:16px 0; }
+    .commitment-list p { margin:0 0 12px; color:#111827; font-weight:600; text-align:left; }
+    .commitment-list ul { margin:0; padding-left:20px; list-style:none; }
+    .commitment-list li { margin:8px 0; color:#6b7280; line-height:1.6; position:relative; padding-left:24px; }
+    .commitment-list li:before { content:"✓"; position:absolute; left:0; color:#e86b6b; font-weight:bold; }
+
+    /* Safety check-in */
+    .safety-checkin { margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid #f1f1f1; }
+    .safety-checkin label { font-size:0.9rem; color:#6b7280; display:block; margin-bottom:0.5rem; text-align:left; }
+    .safety-checkin textarea { width:100%; padding:0.8rem; border:1px solid #e6e6e6; border-radius:12px; font-family:'Poppins',sans-serif; min-height:80px; }
+
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
@@ -72,9 +85,12 @@
 
     <!-- Hidden registration form so Netlify detects the form at build time -->
     <form name="december-plan" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="feeling_about_december" />
+      <input type="text" name="feeling_other" />
       <input type="text" name="tree-theme" />
       <input type="text" name="tree-theme-other" />
       <input type="text" name="tree-budget" />
+      <input type="text" name="tree_safety_checkin" />
       <input type="text" name="getaway" />
       <input type="text" name="getaway-other" />
       <input type="text" name="trip-quick-range" />
@@ -82,7 +98,11 @@
       <input type="text" name="trip-end" />
       <input type="text" name="trip-duration" />
       <input type="text" name="trip-duration-other" />
+      <input type="text" name="getaway_safety_checkin" />
       <input type="text" name="windsor_sleep" />
+      <input type="text" name="windsor_what_makes_safe" />
+      <input type="text" name="windsor_safety_checkin" />
+      <input type="text" name="anything_else_on_mind" />
     </form>
 
     <!-- Visible, multi-step form -->
@@ -95,6 +115,18 @@
         <div class="wizard-card">
           <h1>Our December, Together.</h1>
           <p>This isn't just about Christmas—it's about us. About creating a month of peace and quiet joy that feels like coming home. I want to build it all around you, to make the small things easy and the quiet things warm. This is my promise. Let's plan a soft December that feels just like us.</p>
+          
+          <!-- Emotional check-in -->
+          <div class="form-group" style="margin-bottom:2rem;">
+            <p class="question">Before we plan anything, I want to check in: How are you feeling about the idea of spending December together?</p>
+            <label><input type="radio" name="feeling_about_december" value="Excited"> Excited</label>
+            <label><input type="radio" name="feeling_about_december" value="A little nervous"> A little nervous</label>
+            <label><input type="radio" name="feeling_about_december" value="Unsure"> Unsure</label>
+            <label><input type="radio" name="feeling_about_december" value="I have some concerns I want to talk about first"> I have some concerns I want to talk about first</label>
+            <label><input type="radio" name="feeling_about_december" value="Other"> Other:</label>
+            <textarea name="feeling_other" placeholder="Tell me how you're feeling (optional)..." style="margin-top:0.5rem;"></textarea>
+          </div>
+
           <p class="question">Will you be willing to come and spend December with me?</p>
           <div class="button-group">
             <button type="button" class="btn-choice" data-next-step="1">Yes, I'd love to</button>
@@ -124,6 +156,13 @@
             <label><input type="radio" name="tree-budget" value="$1000"> $1000</label>
             <label><input type="radio" name="tree-budget" value="$1250"> $1250</label>
           </div>
+
+          <!-- Safety check-in -->
+          <div class="safety-checkin">
+            <label>Does anything about this step feel off or uncomfortable? Tell me here (optional):</label>
+            <textarea name="tree_safety_checkin" placeholder="I'm listening..."></textarea>
+          </div>
+
           <div class="nav-buttons">
             <button type="button" class="btn-secondary" data-prev-step="0">Back</button>
             <button type="button" class="btn-primary" data-next-step="2">Next</button>
@@ -260,6 +299,12 @@
             </div>
           </div>
 
+          <!-- Safety check-in -->
+          <div class="safety-checkin">
+            <label>Does anything about this step feel off or uncomfortable? Tell me here (optional):</label>
+            <textarea name="getaway_safety_checkin" placeholder="I'm listening..."></textarea>
+          </div>
+
           <div class="nav-buttons">
             <button type="button" class="btn-secondary" data-prev-step="1">Back</button>
             <button type="button" class="btn-primary" data-next-step="3">Next</button>
@@ -289,11 +334,36 @@
             <p>I love you.</p>
           </div>
 
+          <!-- Commitment list -->
+          <div class="commitment-list">
+            <p>What I'm committing to:</p>
+            <ul>
+              <li>Your comfort comes first—always</li>
+              <li>No guilt, no pressure, no convincing</li>
+              <li>If something doesn't feel right, we change it—no questions asked</li>
+              <li>I will protect your boundaries with my family</li>
+              <li>December is about us, not about pleasing anyone else</li>
+            </ul>
+          </div>
+
           <div class="form-group">
             <label><input type="radio" name="windsor_sleep" value="Hotel"> A quiet hotel that feels private</label>
             <label><input type="radio" name="windsor_sleep" value="Airbnb"> A cozy Airbnb that's just ours</label>
             <label><input type="radio" name="windsor_sleep" value="Decide later"> I want to decide this later</label>
             <label><input type="radio" name="windsor_sleep" value="Mom's house"> My mom's house (only if you want this)</label>
+          </div>
+
+          <!-- Open question: What would make you feel safest? -->
+          <div class="form-group" style="margin-top:1.5rem;">
+            <p class="question">What would make you feel safest and most comfortable during our time in Windsor?</p>
+            <p style="font-size:0.9rem; color:#6b7280; text-align:left; margin-bottom:0.5rem;">(This can be about where we stay, how we spend time, boundaries with family, or anything else.)</p>
+            <textarea name="windsor_what_makes_safe" placeholder="Tell me what you need, in your own words..."></textarea>
+          </div>
+
+          <!-- Safety check-in -->
+          <div class="safety-checkin">
+            <label>Does anything about this step feel off or uncomfortable? Tell me here (optional):</label>
+            <textarea name="windsor_safety_checkin" placeholder="I'm listening..."></textarea>
           </div>
 
           <p class="hint">Thank you for trusting me with this. I want you to feel safe with me—always.</p>
@@ -305,14 +375,38 @@
         </div>
       </div>
 
-      <!-- Step 4: Summary + Submit -->
+      <!-- Step 4: Your Voice Matters -->
       <div id="step-4" class="wizard-step">
+        <div class="wizard-card">
+          <h2>Your Voice Matters</h2>
+          <p>Is there anything else on your mind about December? Anything that would make you feel more comfortable or excited?</p>
+          
+          <div class="form-group">
+            <textarea name="anything_else_on_mind" placeholder="You can leave this blank if you want. I just want you to know: I'm listening." style="min-height:120px;"></textarea>
+          </div>
+
+          <div class="nav-buttons">
+            <button type="button" class="btn-secondary" data-prev-step="3">Back</button>
+            <button type="button" class="btn-primary" data-next-step="5">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Summary + Submit -->
+      <div id="step-5" class="wizard-step">
         <div class="wizard-card">
           <h2>Our Perfect December Plan</h2>
           <p>Thank you for dreaming with me. I can't wait to make all of this a reality.</p>
+          
+          <!-- "You can change your mind anytime" reassurance -->
+          <div style="background:#fff7f7; border:1px solid #f4c9c9; border-radius:12px; padding:16px; margin:16px 0;">
+            <p style="margin:0 0 8px; color:#111827; font-weight:600; text-align:left;">You can change your mind about any of this—anytime.</p>
+            <p style="margin:0; color:#6b7280; text-align:left; line-height:1.6;">This isn't set in stone. If something doesn't feel right later, we'll talk and adjust. I want you to feel good about December, not locked into a plan.</p>
+          </div>
+
           <p class="hint">After you hit submit, all your choices will go to your Santa Claus (husband), and he will organize and plan everything just the way you want.</p>
           <div class="nav-buttons">
-            <button type="button" class="btn-secondary" data-prev-step="3">Back</button>
+            <button type="button" class="btn-secondary" data-prev-step="4">Back</button>
             <button type="submit" class="btn-primary">Submit Our Plan</button>
           </div>
         </div>
