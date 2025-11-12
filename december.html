@@ -2,539 +2,395 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Our December, Together</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="A gentle December planner for us—with a heartfelt note and a sleep plan in Windsor that centers your comfort." />
-  <meta property="og:title" content="Our December, Together">
-  <meta property="og:description" content="A gentle December planner for us—with a heartfelt note and a sleep plan in Windsor that centers your comfort.">
-  <meta property="og:image" content="https://cdn.simulationtheory.ai/gasset/?asset=img&prompt=soft%20romantic%20minimal%20beige%20background%20with%20subtle%20bokeh&w=1200&h=630&style=professional">
-  <meta property="og:type" content="website">
-  <link rel="icon" href="https://cdn.simulationtheory.ai/gasset/?asset=img&prompt=small%20minimal%20heart%20icon%20on%20beige%20background&w=64&h=64&style=professional" />
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="/chat/cdn/animate.min.css" rel="stylesheet">
-  <link href="/chat/cdn/all.min.css" rel="stylesheet">
-  <script src="/chat/cdn/all.min.js" crossorigin></script>
-  <script src="/chat/cdn/papaparse.min.js"></script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    @font-face {
-      font-family: 'Font Awesome 6 Free';
-      font-path: '/chat/webfonts/fa-regular-400';
-      src: url('/chat/webfonts/fa-regular-400.woff2') format('woff2'),
-           url('/chat/webfonts/fa-regular-400.ttf') format('truetype');
+    body { font-family: 'Poppins', sans-serif; background-color: #fff7f7; color: #111827; margin: 0; padding: 2rem; transition: background-image 0.5s ease-in-out; }
+    .hidden { display: none; }
+
+    /* Buttons */
+    button, .btn-primary, .btn-secondary, .btn-choice {
+      background-color: #e86b6b; color: white; padding: 0.8rem 1.5rem; border: none; border-radius: 12px;
+      font-weight: bold; cursor: pointer; transition: all 0.3s ease; font-family: 'Poppins', sans-serif;
     }
-    @font-face {
-      font-family: 'Font Awesome 6 Free';
-      font-path: '/chat/webfonts/fa-solid-900';
-      src: url('/chat/webfonts/fa-solid-900.woff2') format('woff2'),
-           url('/chat/webfonts/fa-solid-900.ttf') format('truetype');
+    button:hover, .btn-primary:hover, .btn-choice:hover { background-color: #d35a5a; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(232, 107, 107, 0.4); }
+
+    body.december-page {
+      background-image: url('https://res.cloudinary.com/dimqqmfx6/image/upload/v1762841028/generated_flux_3169_1762841027_0_gcs2tw.png');
+      background-size: cover; background-position: center center; background-attachment: fixed;
+      display: flex; align-items: center; justify-content: center; min-height: 100vh;
     }
-    @font-face {
-      font-family: 'Font Awesome 6 Brands';
-      font-path: '/chat/webfonts/fa-brands-400';
-      src: url('/chat/webfonts/fa-brands-400.woff2') format('woff2'),
-           url('/chat/webfonts/fa-brands-400.ttf') format('truetype');
+
+    .wizard-container { width: 100%; max-width: 760px; }
+    .wizard-step { display: none; animation: fadeIn 0.8s ease-in-out; }
+    .wizard-step.active-step { display: block; }
+
+    .wizard-card {
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 3rem; border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: left;
     }
+    .wizard-card h1, .wizard-card h2 { font-family: 'Playfair Display', serif; text-align: center; color: #111827; font-size: 2.8rem; margin-bottom: 1.5rem; }
+    .wizard-card h2 { font-size: 2.2rem; }
+    .wizard-card p { color: #6b7280; line-height: 1.6; text-align: center; margin-bottom: 2rem; }
+    .wizard-card p.question { font-weight: bold; color: #111827; margin-bottom: 1rem; text-align: left; }
+    .wizard-card p.hint { font-size: 0.9rem; text-align: center; margin-top: 2rem; margin-bottom: 0; }
+
+    .badge { display:inline-block; font-size: 0.85rem; color:#e86b6b; background:#fff; border:1px solid #f4c9c9; border-radius:999px; padding:6px 12px; margin-bottom: 12px; }
+
+    .button-group { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .button-group .btn-choice { flex-grow: 1; }
+
+    .nav-buttons { display: flex; justify-content: space-between; margin-top: 2rem; border-top: 1px solid #f1f1f1; padding-top: 2rem; }
+    .btn-secondary { background-color: transparent; color: #e86b6b; border: 1px solid #f4c9c9; }
+    .btn-secondary:hover { background-color: #fff7f7; color: #e86b6b; box-shadow: none; transform: translateY(0); }
+
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; background: #fff; padding: 1rem; border: 1px solid #f1f1f1; border-radius: 12px; margin-bottom: 0.5rem; cursor: pointer; transition: all 0.2s ease; }
+    .form-group label:hover { border-color: #f4c9c9; background: #fff7f7; }
+    .form-group input[type="radio"], .form-group input[type="checkbox"] { margin-right: 0.8rem; }
+    .form-group input[type="text"], .form-group select { width: 100%; padding: 0.8rem 1rem; border: 1px solid #e6e6e6; border-radius: 12px; margin-top: 0.5rem; }
+
+    /* Getaway sub-options */
+    .trip-choice small { display:block; color:#6b7280; margin-top:4px; }
+    .trip-options { padding: 12px 16px; margin: 6px 0 18px 36px; border-left: 2px solid #f4c9c9; }
+    .sub-question { margin: 0 0 8px; font-weight: 600; color:#111827; }
+    .sub-row { display: flex; gap: 10px; align-items: center; margin: 10px 0; flex-wrap: wrap; }
+    .sub-row input[type="text"], .sub-row select { padding: 8px 10px; border:1px solid #e6e6e6; border-radius:10px; }
+
+    /* Heartfelt box */
+    .heart-box { border:1px solid #f4c9c9; background:#fff; border-radius:12px; padding:16px; margin:16px 0; }
+    .heart-box p { margin: 0 0 8px; color:#6b7280; line-height:1.6; }
+    .heart-box p:first-child, .heart-box p:last-child { color:#111827; font-weight:600; }
+    .heart-box p:last-child { margin-bottom: 0; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
-<body class="min-h-screen bg-white text-gray-900">
-  <div class="relative">
-    <img
-      src="https://res.cloudinary.com/dimqqmfx6/image/upload/v1762754518/generated_flux_3169_1762754518_0_eqaoah.png"
-      alt="Soft cozy background"
-      class="fixed inset-0 w-full h-full object-cover opacity-20 -z-10"
-      onerror="this.style.display='none';"
-    />
-    <div class="fixed inset-0 bg-white/60 dark:bg-black/50 -z-10"></div>
+<body class="december-page">
+  <div id="december-wizard" class="wizard-container">
+
+    <!-- Hidden registration form so Netlify detects the form at build time -->
+    <form name="december-plan" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="tree-theme" />
+      <input type="text" name="tree-theme-other" />
+      <input type="text" name="tree-budget" />
+      <input type="text" name="getaway" />
+      <input type="text" name="getaway-other" />
+      <input type="text" name="trip-quick-range" />
+      <input type="text" name="trip-start" />
+      <input type="text" name="trip-end" />
+      <input type="text" name="trip-duration" />
+      <input type="text" name="trip-duration-other" />
+      <input type="text" name="windsor_sleep" />
+    </form>
+
+    <!-- Visible, multi-step form -->
+    <form id="december-form" name="december-plan" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
+      <input type="hidden" name="form-name" value="december-plan" />
+      <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+
+      <!-- Step 0 -->
+      <div id="step-0" class="wizard-step active-step">
+        <div class="wizard-card">
+          <h1>Our December, Together.</h1>
+          <p>This isn't just about Christmas—it's about us. About creating a month of peace and quiet joy that feels like coming home. I want to build it all around you, to make the small things easy and the quiet things warm. This is my promise. Let's plan a soft December that feels just like us.</p>
+          <p class="question">Will you be willing to come and spend December with me?</p>
+          <div class="button-group">
+            <button type="button" class="btn-choice" data-next-step="1">Yes, I'd love to</button>
+            <button type="button" class="btn-choice" data-next-step="1">Yes, of course!</button>
+            <button type="button" class="btn-choice" data-next-step="1">A thousand times, yes!</button>
+          </div>
+          <p class="hint">Hint: The work holiday party is on December 6th, and they allow plus ones!</p>
+        </div>
+      </div>
+
+      <!-- Step 1: Our Tree -->
+      <div id="step-1" class="wizard-step">
+        <div class="wizard-card">
+          <h2>Our First Christmas Tree</h2>
+          <div class="form-group">
+            <p class="question">What should our theme be?</p>
+            <label><input type="radio" name="tree-theme" value="Classic Reds & Golds"> Classic Reds & Golds</label>
+            <label><input type="radio" name="tree-theme" value="Winter Whites & Silvers"> Winter Whites & Silvers</label>
+            <label><input type="radio" name="tree-theme" value="A Mix of Everything"> A Mix of Everything Beautiful</label>
+            <label><input type="radio" name="tree-theme" value="Other"> Something Else Entirely:</label>
+            <input type="text" name="tree-theme-other" placeholder="Your beautiful vision here...">
+          </div>
+          <div class="form-group">
+            <p class="question">What feels right for our tree & decorations budget?</p>
+            <label><input type="radio" name="tree-budget" value="$500"> $500</label>
+            <label><input type="radio" name="tree-budget" value="$750"> $750</label>
+            <label><input type="radio" name="tree-budget" value="$1000"> $1000</label>
+            <label><input type="radio" name="tree-budget" value="$1250"> $1250</label>
+          </div>
+          <div class="nav-buttons">
+            <button type="button" class="btn-secondary" data-prev-step="0">Back</button>
+            <button type="button" class="btn-primary" data-next-step="2">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Our Christmas Getaway -->
+      <div id="step-2" class="wizard-step">
+        <div class="wizard-card">
+          <h2>Our Christmas Getaway</h2>
+
+          <div class="form-group">
+            <!-- NYC -->
+            <label class="trip-choice">
+              <input type="radio" name="getaway" value="New York City">
+              <strong>New York City</strong>
+              <small>We could re-create our 2023 Christmas day trip, but this time, wandering the sparkling streets as husband and wife.</small>
+            </label>
+            <div class="trip-options hidden">
+              <p class="sub-question">When would you like to go?</p>
+              <label><input type="radio" name="trip-quick-range" value="Dec 23–27"> Dec 23–27</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 27–30"> Dec 27–30</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 30–Jan 2"> Dec 30–Jan 2</label>
+              <div class="sub-row">
+                <span>Or choose your own:</span>
+                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)">
+                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)">
+              </div>
+              <div class="sub-row">
+                <label for="trip-duration">Preferred duration</label>
+                <select id="trip-duration" name="trip-duration">
+                  <option value="">Choose…</option>
+                  <option value="2 days">2 days</option>
+                  <option value="3 days">3 days</option>
+                  <option value="4 days">4 days</option>
+                  <option value="5 days">5 days</option>
+                  <option value="Other">Other (specify below)</option>
+                </select>
+                <input type="text" name="trip-duration-other" placeholder="If 'Other', tell me how many days">
+              </div>
+            </div>
+
+            <!-- Montreal -->
+            <label class="trip-choice">
+              <input type="radio" name="getaway" value="Montréal">
+              <strong>Montréal</strong>
+              <small>Imagine walking through the cobblestone streets of Old Montréal, with European Christmas markets and a magical, snowy atmosphere.</small>
+            </label>
+            <div class="trip-options hidden">
+              <p class="sub-question">When would you like to go?</p>
+              <label><input type="radio" name="trip-quick-range" value="Dec 23–27"> Dec 23–27</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 27–30"> Dec 27–30</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 30–Jan 2"> Dec 30–Jan 2</label>
+              <div class="sub-row">
+                <span>Or choose your own:</span>
+                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)">
+                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)">
+              </div>
+              <div class="sub-row">
+                <label for="trip-duration-2">Preferred duration</label>
+                <select id="trip-duration-2" name="trip-duration">
+                  <option value="">Choose…</option>
+                  <option value="2 days">2 days</option>
+                  <option value="3 days">3 days</option>
+                  <option value="4 days">4 days</option>
+                  <option value="5 days">5 days</option>
+                  <option value="Other">Other (specify below)</option>
+                </select>
+                <input type="text" name="trip-duration-other" placeholder="If 'Other', tell me how many days">
+              </div>
+            </div>
+
+            <!-- Québec City -->
+            <label class="trip-choice">
+              <input type="radio" name="getaway" value="Québec City">
+              <strong>Québec City</strong>
+              <small>It's like stepping into a real-life Dickens village, incredibly romantic and festive. Known as the most Christmassy city in Canada.</small>
+            </label>
+            <div class="trip-options hidden">
+              <p class="sub-question">When would you like to go?</p>
+              <label><input type="radio" name="trip-quick-range" value="Dec 23–27"> Dec 23–27</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 27–30"> Dec 27–30</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 30–Jan 2"> Dec 30–Jan 2</label>
+              <div class="sub-row">
+                <span>Or choose your own:</span>
+                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)">
+                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)">
+              </div>
+              <div class="sub-row">
+                <label for="trip-duration-3">Preferred duration</label>
+                <select id="trip-duration-3" name="trip-duration">
+                  <option value="">Choose…</option>
+                  <option value="2 days">2 days</option>
+                  <option value="3 days">3 days</option>
+                  <option value="4 days">4 days</option>
+                  <option value="5 days">5 days</option>
+                  <option value="Other">Other (specify below)</option>
+                </select>
+                <input type="text" name="trip-duration-other" placeholder="If 'Other', tell me how many days">
+              </div>
+            </div>
+
+            <!-- Somewhere else -->
+            <label class="trip-choice">
+              <input type="radio" name="getaway" value="Other">
+              <strong>Somewhere Else?</strong>
+            </label>
+            <div class="trip-options hidden">
+              <div class="sub-row">
+                <input type="text" name="getaway-other" placeholder="Where is your heart telling you to go?">
+              </div>
+              <p class="sub-question">When would you like to go?</p>
+              <label><input type="radio" name="trip-quick-range" value="Dec 23–27"> Dec 23–27</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 27–30"> Dec 27–30</label>
+              <label><input type="radio" name="trip-quick-range" value="Dec 30–Jan 2"> Dec 30–Jan 2</label>
+              <div class="sub-row">
+                <span>Or choose your own:</span>
+                <input type="text" name="trip-start" placeholder="Start (e.g., Dec 23)">
+                <input type="text" name="trip-end" placeholder="End (e.g., Dec 27)">
+              </div>
+              <div class="sub-row">
+                <label for="trip-duration-4">Preferred duration</label>
+                <select id="trip-duration-4" name="trip-duration">
+                  <option value="">Choose…</option>
+                  <option value="2 days">2 days</option>
+                  <option value="3 days">3 days</option>
+                  <option value="4 days">4 days</option>
+                  <option value="5 days">5 days</option>
+                  <option value="Other">Other (specify below)</option>
+                </select>
+                <input type="text" name="trip-duration-other" placeholder="If 'Other', tell me how many days">
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-buttons">
+            <button type="button" class="btn-secondary" data-prev-step="1">Back</button>
+            <button type="button" class="btn-primary" data-next-step="3">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Sleep plan that feels safe to you -->
+      <div id="step-3" class="wizard-step">
+        <div class="wizard-card">
+          <span class="badge">Your comfort comes first.</span>
+          <h2>Sleep plan that feels safe to you</h2>
+          <p>Whatever you choose here, I'll handle it. No pressure. Let's decide this together when you arrive, if that's easier.</p>
+
+          <!-- Heartfelt note block -->
+          <div class="heart-box">
+            <p>Hey my love,</p>
+            <p>
+              About yesterday. I was genuinely excited to make this for you as a surprise. I see now that it felt to you like I was trying to convince you of something. That wasn't my intention, and I'm sorry it landed that way.
+            </p>
+            <p>
+              I want you to feel safe, heard, and protected with me. Your feelings matter to me—a lot. I don't think they're silly. I care about you and about your heart, and I'm committed to doing this the right way with you.
+            </p>
+            <p>
+              If any part of what I said made you feel pushed, I'm sorry. I'm here to listen and to make December gentle and calm for us. You come first.
+            </p>
+            <p>I love you.</p>
+          </div>
+
+          <div class="form-group">
+            <label><input type="radio" name="windsor_sleep" value="Hotel"> A quiet hotel that feels private</label>
+            <label><input type="radio" name="windsor_sleep" value="Airbnb"> A cozy Airbnb that's just ours</label>
+            <label><input type="radio" name="windsor_sleep" value="Decide later"> I want to decide this later</label>
+            <label><input type="radio" name="windsor_sleep" value="Mom's house"> My mom's house (only if you want this)</label>
+          </div>
+
+          <p class="hint">Thank you for trusting me with this. I want you to feel safe with me—always.</p>
+
+          <div class="nav-buttons">
+            <button type="button" class="btn-secondary" data-prev-step="2">Back</button>
+            <button type="button" class="btn-primary" data-next-step="4">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Summary + Submit -->
+      <div id="step-4" class="wizard-step">
+        <div class="wizard-card">
+          <h2>Our Perfect December Plan</h2>
+          <p>Thank you for dreaming with me. I can't wait to make all of this a reality.</p>
+          <p class="hint">After you hit submit, all your choices will go to your Santa Claus (husband), and he will organize and plan everything just the way you want.</p>
+          <div class="nav-buttons">
+            <button type="button" class="btn-secondary" data-prev-step="3">Back</button>
+            <button type="submit" class="btn-primary">Submit Our Plan</button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 
-  <main class="max-w-3xl mx-auto p-6 sm:p-8">
-    <header class="mb-6 sm:mb-8">
-      <h1 class="text-3xl sm:text-4xl font-bold text-center tracking-tight">Our December, Together</h1>
-      <p class="text-center text-gray-600 mt-2">A soft plan that feels like us.</p>
-    </header>
-
-    <section aria-label="Heartfelt message" class="mb-8">
-      <div class="bg-white/90 backdrop-blur shadow-md rounded-xl p-5 sm:p-6 border border-gray-100">
-        <h2 class="text-xl font-semibold text-center mb-4">For you</h2>
-        <div class="space-y-4 text-gray-800">
-          <p>Hey my love,</p>
-          <p>I was genuinely excited to make this for you as a surprise. I see now that it felt to you like I was trying to convince you of something. That wasn’t my intention, and I’m sorry it landed that way.</p>
-          <p>I want you to feel safe, heard, and protected with me. Your feelings matter to me—a lot. I don’t think they’re silly. I care about you and about your heart, and I’m committed to doing this the right way with you.</p>
-          <p>If any part of what I said made you feel pushed, I’m sorry. I’m here to listen and to make December gentle and calm for us. You come first.</p>
-          <p>I love you.</p>
-        </div>
-      </div>
-    </section>
-
-    <div id="app" class="space-y-6">
-      <div id="toast" class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-50">
-        <div class="bg-rose-600 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2">
-          <i class="fas fa-circle-exclamation fa-sm" aria-hidden="true"></i>
-          <span id="toast-text" class="text-sm"></span>
-        </div>
-      </div>
-
-      <form id="decemberForm" class="space-y-6" novalidate>
-        <section id="step-0" class="bg-white/90 backdrop-blur rounded-xl shadow border border-gray-100 p-5 sm:p-6">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="px-2 py-1 text-xs rounded-full border border-rose-200 text-rose-600">Step 0</span>
-            <span class="text-xs text-gray-500">Start</span>
-          </div>
-          <h3 class="text-2xl font-semibold mb-2 text-center">Will you spend December with me?</h3>
-          <p class="text-center text-gray-600 mb-4">Soft, simple, and all about us.</p>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <button type="button" data-next="#step-1" class="w-full px-4 py-3 rounded-lg bg-rose-500 hover:bg-rose-600 text-white transition-all shadow-sm">Yes, I'd love to</button>
-            <button type="button" data-next="#step-1" class="w-full px-4 py-3 rounded-lg bg-rose-500 hover:bg-rose-600 text-white transition-all shadow-sm">Yes, of course!</button>
-            <button type="button" data-next="#step-1" class="w-full px-4 py-3 rounded-lg bg-rose-500 hover:bg-rose-600 text-white transition-all shadow-sm">A thousand times, yes!</button>
-          </div>
-          <p class="text-xs text-center text-gray-500 mt-3">Hint: The work holiday party is on December 6th (plus ones are welcome).</p>
-        </section>
-
-        <section id="step-1" class="bg-white/90 backdrop-blur rounded-xl shadow border border-gray-100 p-5 sm:p-6 hidden">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="px-2 py-1 text-xs rounded-full border border-rose-200 text-rose-600">Step 1</span>
-            <span class="text-xs text-gray-500">Tree</span>
-          </div>
-          <h3 class="text-2xl font-semibold mb-4 text-center">Our First Christmas Tree</h3>
-
-          <div class="space-y-2 mb-5">
-            <p class="font-medium">Theme</p>
-            <label class="flex items-center gap-3 p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-              <input type="radio" name="treeTheme" value="Classic Reds & Golds" class="w-4 h-4">
-              <span>Classic Reds & Golds</span>
-            </label>
-            <label class="flex items-center gap-3 p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-              <input type="radio" name="treeTheme" value="Winter Whites & Silvers" class="w-4 h-4">
-              <span>Winter Whites & Silvers</span>
-            </label>
-            <label class="flex items-center gap-3 p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-              <input type="radio" name="treeTheme" value="A Mix of Everything Beautiful" class="w-4 h-4">
-              <span>A Mix of Everything Beautiful</span>
-            </label>
-            <label class="flex items-center gap-3 p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-              <input type="radio" name="treeTheme" value="Other" class="w-4 h-4">
-              <span>Something Else Entirely</span>
-            </label>
-            <input id="treeThemeOther" type="text" placeholder="Your beautiful vision here..." class="w-full mt-2 px-3 py-2 border rounded-lg" />
-          </div>
-
-          <div class="space-y-2">
-            <p class="font-medium">Tree & decorations budget</p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              <label class="flex items-center gap-2 p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                <input type="radio" name="treeBudget" value="$500" class="w-4 h-4">
-                <span>$500</span>
-              </label>
-              <label class="flex items-center gap-2 p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                <input type="radio" name="treeBudget" value="$750" class="w-4 h-4">
-                <span>$750</span>
-              </label>
-              <label class="flex items-center gap-2 p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                <input type="radio" name="treeBudget" value="$1000" class="w-4 h-4">
-                <span>$1000</span>
-              </label>
-              <label class="flex items-center gap-2 p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                <input type="radio" name="treeBudget" value="$1250" class="w-4 h-4">
-                <span>$1250</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="flex items-center justify-between mt-6">
-            <button type="button" data-prev="#step-0" class="px-4 py-2 rounded-lg border border-rose-200 text-rose-600 hover:bg-rose-50">Back</button>
-            <button type="button" data-next="#step-2" class="px-4 py-2 rounded-lg bg-rose-500 hover:bg-rose-600 text-white">Next</button>
-          </div>
-        </section>
-
-        <section id="step-2" class="bg-white/90 backdrop-blur rounded-xl shadow border border-gray-100 p-5 sm:p-6 hidden">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="px-2 py-1 text-xs rounded-full border border-rose-200 text-rose-600">Step 2</span>
-            <span class="text-xs text-gray-500">Getaway</span>
-          </div>
-          <h3 class="text-2xl font-semibold mb-4 text-center">Our Christmas Getaway</h3>
-
-          <div class="space-y-4">
-            <div>
-              <label class="block p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                <div class="flex items-start gap-3">
-                  <input type="radio" name="getaway" value="New York City" class="mt-1 w-4 h-4">
-                  <div>
-                    <p class="font-semibold">New York City</p>
-                    <p class="text-sm text-gray-600">We could re-create our 2023 Christmas day trip, but this time, wandering the sparkling streets as husband and wife.</p>
-                  </div>
-                </div>
-              </label>
-              <div class="mt-3 pl-5 border-l-2 border-rose-200 space-y-3 hidden" data-trip="New York City">
-                <p class="font-medium">When would you like to go?</p>
-                <div class="flex flex-wrap gap-2">
-                  <label class="px-3 py-2 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                    <input type="radio" name="tripRange" value="Dec 23–27" class="mr-2"> Dec 23–27
-                  </label>
-                  <label class="px-3 py-2 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                    <input type="radio" name="tripRange" value="Dec 27–30" class="mr-2"> Dec 27–30
-                  </label>
-                  <label class="px-3 py-2 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                    <input type="radio" name="tripRange" value="Dec 30–Jan 2" class="mr-2"> Dec 30–Jan 2
-                  </label>
-                </div>
-                <div class="flex flex-wrap items-center gap-2">
-                  <span class="text-sm text-gray-600">Or choose your own:</span>
-                  <input type="text" name="tripStart" placeholder="Start (e.g., Dec 23)" class="px-3 py-2 border rounded-lg">
-                  <input type="text" name="tripEnd" placeholder="End (e.g., Dec 27)" class="px-3 py-2 border rounded-lg">
-                </div>
-                <div class="flex flex-wrap items-center gap-2">
-                  <label for="tripDuration" class="text-sm">Preferred duration</label>
-                  <select id="tripDuration" name="tripDuration" class="px-3 py-2 border rounded-lg">
-                    <option value="">Choose…</option>
-                    <option value="2 days">2 days</option>
-                    <option value="3 days">3 days</option>
-                    <option value="4 days">4 days</option>
-                    <option value="5 days">5 days</option>
-                    <option value="Other">Other (specify below)</option>
-                  </select>
-                  <input type="text" name="tripDurationOther" placeholder="If ‘Other’, how many days?" class="px-3 py-2 border rounded-lg">
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label class="block p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                <div class="flex items-start gap-3">
-                  <input type="radio" name="getaway" value="Montréal" class="mt-1 w-4 h-4">
-                  <div>
-                    <p class="font-semibold">Montréal</p>
-                    <p class="text-sm text-gray-600">Old Montréal, European Christmas markets, and a magical, snowy atmosphere.</p>
-                  </div>
-                </div>
-              </label>
-              <div class="mt-3 pl-5 border-l-2 border-rose-200 space-y-3 hidden" data-trip="Montréal">
-                <p class="font-medium">When would you like to go?</p>
-                <div class="flex flex-wrap gap-2">
-                  <label class="px-3 py-2 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                    <input type="radio" name="tripRange" value="Dec 23–27" class="mr-2"> Dec 23–27
-                  </label>
-                  <label class="px-3 py-2 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                    <input type="radio" name="tripRange" value="Dec 27–30" class="mr-2"> Dec 27–30
-                  </label>
-                  <label class="px-3 py-2 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                    <input type="radio" name="tripRange" value="Dec 30–Jan 2" class="mr-2"> Dec 30–Jan 2
-                  </label>
-                </div>
-                <div class="flex flex-wrap items-center gap-2">
-                  <span class="text-sm text-gray-600">Or choose your own:</span>
-                  <input type="text" name="tripStart" placeholder="Start (e.g., Dec 23)" class="px-3 py-2 border rounded-lg">
-                  <input type="text" name="tripEnd" placeholder="End (e.g., Dec 27)" class="px-3 py-2 border rounded-lg">
-                </div>
-                <div class="flex flex-wrap items-center gap-2">
-                  <label for="tripDuration2" class="text-sm">Preferred duration</label>
-                  <select id="tripDuration2" name="tripDuration" class="px-3 py-2 border rounded-lg">
-                    <option value="">Choose…</option>
-                    <option value="2 days">2 days</option>
-                    <option value="3 days">3 days</option>
-                    <option value="4 days">4 days</option>
-                    <option value="5 days">5 days</option>
-                    <option value="Other">Other (specify below)</option>
-                  </select>
-                  <input type="text" name="tripDurationOther" placeholder="If ‘Other’, how many days?" class="px-3 py-2 border rounded-lg">
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label class="block p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                <div class="flex items-start gap-3">
-                  <input type="radio" name="getaway" value="Québec City" class="mt-1 w-4 h-4">
-                  <div>
-                    <p class="font-semibold">Québec City</p>
-                    <p class="text-sm text-gray-600">Like a real-life Dickens village—romantic, festive, and so Christmassy.</p>
-                  </div>
-                </div>
-              </label>
-              <div class="mt-3 pl-5 border-l-2 border-rose-200 space-y-3 hidden" data-trip="Québec City">
-                <p class="font-medium">When would you like to go?</p>
-                <div class="flex flex-wrap gap-2">
-                  <label class="px-3 py-2 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                    <input type="radio" name="tripRange" value="Dec 23–27" class="mr-2"> Dec 23–27
-                  </label>
-                  <label class="px-3 py-2 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                    <input type="radio" name="tripRange" value="Dec 27–30" class="mr-2"> Dec 27–30
-                  </label>
-                  <label class="px-3 py-2 border rounded-lg hover:bg-rose-50 cursor-pointer">
-                    <input type="radio" name="tripRange" value="Dec 30–Jan 2" class="mr-2"> Dec 30–Jan 2
-                  </label>
-                </div>
-                <div class="flex flex-wrap items-center gap-2">
-                  <span class="text-sm text-gray-600">Or choose your own:</span>
-                  <input type="text" name="tripStart" placeholder="Start (e.g., Dec 23)" class="px-3 py-2 border rounded-lg">
-                  <input type="text" name="tripEnd" placeholder="End (e.g., Dec 27)" class="px-3 py-2 border rounded-lg">
-                </div>
-                <div class="flex flex-wrap items-center gap-2">
-                  <label for="tripDuration3" class="text-sm">Preferred duration</label>
-                  <select id="tripDuration3" name="tripDuration" class="px-3 py-2 border rounded-lg">
-                    <option value="">Choose…</option>
-                    <option value="2 days">2 days</option>
-                    <option value="3 days">3 days</option>
-                    <option value="4 days">4 days</option>
-                    <option value="5 days">5 days</option>
-                    <option value="Other">Other (specify below)</option>
-                  </select>
-                  <input type="text" name="tripDurationOther" placeholder="If ‘Other’, how many days?" class="px-3 py-2 border rounded-lg">
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex items-center justify-between mt-6">
-            <button type="button" data-prev="#step-1" class="px-4 py-2 rounded-lg border border-rose-200 text-rose-600 hover:bg-rose-50">Back</button>
-            <button type="button" data-next="#step-windsor" class="px-4 py-2 rounded-lg bg-rose-500 hover:bg-rose-600 text-white">Next</button>
-          </div>
-        </section>
-
-        <section id="step-windsor" class="bg-white/90 backdrop-blur rounded-xl shadow border border-gray-100 p-5 sm:p-6 hidden">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="px-2 py-1 text-xs rounded-full border border-rose-200 text-rose-600">Step 3</span>
-            <span class="text-xs text-gray-500">Windsor</span>
-          </div>
-          <h3 class="text-2xl font-semibold text-center mb-1">Sleep plan that feels safe to you</h3>
-          <p class="text-center text-gray-600 mb-4">Whatever you choose here, I’ll handle it. No pressure.</p>
-
-          <div class="flex items-center justify-center mb-4">
-            <span class="px-3 py-1 text-xs rounded-full border border-rose-200 text-rose-600">Your comfort comes first.</span>
-          </div>
-
-          <div class="space-y-3">
-            <label class="flex items-start gap-3 p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-              <input type="radio" name="windsorSleep" value="Hotel" class="mt-1 w-4 h-4">
-              <div>
-                <p class="font-semibold">A quiet hotel that feels private</p>
-              </div>
-            </label>
-
-            <label class="flex items-start gap-3 p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-              <input type="radio" name="windsorSleep" value="Airbnb" class="mt-1 w-4 h-4">
-              <div>
-                <p class="font-semibold">A cozy Airbnb that’s just ours</p>
-              </div>
-            </label>
-
-            <label class="flex items-start gap-3 p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-              <input type="radio" name="windsorSleep" value="Decide later" class="mt-1 w-4 h-4">
-              <div>
-                <p class="font-semibold">I want to decide this later</p>
-                <p class="text-sm text-gray-600">Let’s decide this together when you arrive.</p>
-              </div>
-            </label>
-
-            <label class="flex items-start gap-3 p-3 border rounded-lg hover:bg-rose-50 cursor-pointer">
-              <input type="radio" name="windsorSleep" value="My mom’s house (only if you want this)" class="mt-1 w-4 h-4">
-              <div>
-                <p class="font-semibold">My mom’s house (only if you want this)</p>
-              </div>
-            </label>
-          </div>
-
-          <p class="text-center text-gray-600 mt-5 text-sm">Thank you for trusting me with this. I want you to feel safe with me—always.</p>
-
-          <div class="flex items-center justify-between mt-6">
-            <button type="button" data-prev="#step-2" class="px-4 py-2 rounded-lg border border-rose-200 text-rose-600 hover:bg-rose-50">Back</button>
-            <button type="submit" class="px-4 py-2 rounded-lg bg-rose-500 hover:bg-rose-600 text-white">Save</button>
-          </div>
-        </section>
-      </form>
-
-      <div id="loading" class="hidden flex items-center justify-center gap-2 text-gray-700">
-        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
-        <span>Saving your choices…</span>
-      </div>
-
-      <section id="result" class="hidden bg-white/90 backdrop-blur rounded-xl shadow border border-gray-100 p-5 sm:p-6">
-        <h4 class="text-lg font-semibold mb-2">Saved</h4>
-        <p class="text-gray-700">Your selections have been saved. We can change anything later, no pressure.</p>
-      </section>
-    </div>
-  </main>
-
+  <!-- Scripts -->
   <script>
-    (function() {
-      'use strict';
+    // Step navigation
+    document.addEventListener('DOMContentLoaded', function () {
+      const wizard = document.getElementById('december-wizard');
+      if (wizard) {
+        const steps = wizard.querySelectorAll('.wizard-step');
+        let currentStep = 0;
+        const goToStep = (i) => {
+          steps[currentStep].classList.remove('active-step');
+          steps[i].classList.add('active-step');
+          currentStep = i;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        wizard.addEventListener('click', function (e) {
+          if (e.target.matches('[data-next-step]')) {
+            goToStep(parseInt(e.target.getAttribute('data-next-step')));
+          }
+          if (e.target.matches('[data-prev-step]')) {
+            goToStep(parseInt(e.target.getAttribute('data-prev-step')));
+          }
+        });
+      }
+    });
 
-      const qs = (sel, el = document) => el.querySelector(sel);
-      const qsa = (sel, el = document) => Array.from(el.querySelectorAll(sel));
+    // Helper to url-encode form data
+    function encode(data) {
+      return Object.keys(data)
+        .map((k) => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
+        .join('&');
+    }
 
-      document.addEventListener('DOMContentLoaded', () => {
-        initNav();
-        initGetawayAccordions();
-        initForm();
+    // Submit via JS to Netlify, then redirect manually
+    const form = document.getElementById('december-form');
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const data = { 'form-name': form.getAttribute('name') };
+        formData.forEach((value, key) => (data[key] = value));
+
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encode(data)
+        })
+          .then(() => { window.location.href = 'thank-you.html'; })
+          .catch((err) => {
+            console.error('Submission failed:', err);
+            alert('Sorry, something went wrong submitting the form. Please try again.');
+          });
       });
+    }
 
-      function showToast(msg) {
-        const toast = qs('#toast');
-        const txt = qs('#toast-text');
-        if (!toast || !txt) return;
-        txt.textContent = msg;
-        toast.classList.remove('hidden');
-        setTimeout(() => toast.classList.add('hidden'), 2600);
+    // Show/hide getaway sub-options
+    document.addEventListener('DOMContentLoaded', function () {
+      const tripChoices = document.querySelectorAll('.trip-choice input[name="getaway"]');
+      function hideAllTripOptions() {
+        document.querySelectorAll('.trip-options').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('input[name="trip-quick-range"]').forEach(r => r.checked = false);
       }
-
-      function toggleStep(targetSelector) {
-        const sections = ['#step-0', '#step-1', '#step-2', '#step-windsor'];
-        sections.forEach(id => {
-          const el = qs(id);
-          if (el) el.classList.add('hidden');
-        });
-        const t = qs(targetSelector);
-        if (t) t.classList.remove('hidden');
-        else console.error('Missing step:', targetSelector);
-      }
-
-      function initNav() {
-        qsa('[data-next]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const to = btn.getAttribute('data-next');
-            toggleStep(to);
-          });
-        });
-        qsa('[data-prev]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const to = btn.getAttribute('data-prev');
-            toggleStep(to);
-          });
-        });
-      }
-
-      function initGetawayAccordions() {
-        const getawayRadios = qsa('input[name="getaway"]');
-        getawayRadios.forEach(r => {
-          r.addEventListener('change', () => {
-            const val = r.value;
-            qsa('[data-trip]').forEach(p => p.classList.add('hidden'));
-            const panel = qs(`[data-trip="${CSS.escape(val)}"]`);
-            if (panel) panel.classList.remove('hidden');
-          });
-        });
-      }
-
-      function initForm() {
-        const form = qs('#decemberForm');
-        if (!form) return;
-
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const data = collectData();
-          const validation = validateData(data);
-          if (!validation.ok) {
-            showToast(validation.message || 'Please complete required fields.');
-            return;
-          }
-
-          setLoading(true);
-          try {
-            await saveCSV(data);
-            showResult();
-          } catch (err) {
-            console.error(err);
-            showToast('Failed to save. Please try again.');
-          } finally {
-            setLoading(false);
+      tripChoices.forEach((radio) => {
+        radio.addEventListener('change', () => {
+          hideAllTripOptions();
+          const optionsBlock = radio.closest('label.trip-choice').nextElementSibling;
+          if (optionsBlock && optionsBlock.classList.contains('trip-options')) {
+            optionsBlock.classList.remove('hidden');
           }
         });
-
-        const themeOther = qs('#treeThemeOther');
-        qsa('input[name="treeTheme"]').forEach(r => {
-          r.addEventListener('change', () => {
-            if (r.value === 'Other') {
-              themeOther.removeAttribute('disabled');
-              themeOther.classList.remove('opacity-50');
-              themeOther.focus();
-            } else {
-              themeOther.value = '';
-              themeOther.setAttribute('disabled', 'true');
-              themeOther.classList.add('opacity-50');
-            }
-          });
-        });
-        // start with disabled "other"
-        themeOther.setAttribute('disabled', 'true');
-        themeOther.classList.add('opacity-50');
-      }
-
-      function collectData() {
-        const g = (name) => {
-          const el = qs(`[name="${CSS.escape(name)}"]:checked`) || qs(`[name="${CSS.escape(name)}"]`);
-          if (!el) return '';
-          if (el.type === 'radio' || el.type === 'checkbox') return el.value || '';
-          return el.value || '';
-        };
-        const gAll = (name) => qsa(`[name="${CSS.escape(name)}"]`).map(i => i.value).filter(Boolean);
-
-        return {
-          step_started: true,
-          treeTheme: (function() {
-            const sel = qs('input[name="treeTheme"]:checked');
-            if (!sel) return '';
-            if (sel.value === 'Other') {
-              return (qs('#treeThemeOther')?.value || 'Other').trim();
-            }
-            return sel.value;
-          })(),
-          treeBudget: qs('input[name="treeBudget"]:checked')?.value || '',
-          getaway: qs('input[name="getaway"]:checked')?.value || '',
-          tripRange: qs('input[name="tripRange"]:checked')?.value || '',
-          tripStart: qs('input[name="tripStart"]')?.value.trim() || '',
-          tripEnd: qs('input[name="tripEnd"]')?.value.trim() || '',
-          tripDuration: (function() {
-            const d = qs('select[name="tripDuration"]')?.value || '';
-            if (d === 'Other') return (qs('input[name="tripDurationOther"]')?.value.trim() || 'Other').trim();
-            return d;
-          })(),
-          windsorSleep: qs('input[name="windsorSleep"]:checked')?.value || '',
-          timestamp: new Date().toISOString()
-        };
-      }
-
-      function validateData(d) {
-        if (!d.windsorSleep) return { ok: false, message: 'Please choose a Windsor sleep plan.' };
-        return { ok: true };
-      }
-
-      async function saveCSV(d) {
-        if (typeof window.save_data_to_csv !== 'function') {
-          // graceful fallback: build CSV with Papa unparse & download
-          const csv = Papa.unparse([d], { header: true });
-          const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'december_plan.csv';
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          URL.revokeObjectURL(url);
-          return;
-        }
-        // Use provided special function
-        await window.save_data_to_csv('december_plan.csv', [d]);
-      }
-
-      function setLoading(isLoading) {
-        const loading = qs('#loading');
-        const submitBtn = qs('#step-windsor button[type="submit"]');
-        if (loading) loading.classList.toggle('hidden', !isLoading);
-        if (submitBtn) {
-          submitBtn.disabled = isLoading;
-          submitBtn.classList.toggle('opacity-60', isLoading);
-          submitBtn.classList.toggle('cursor-not-allowed', isLoading);
-        }
-      }
-
-      function showResult() {
-        toggleStep('#step-windsor'); // keep on same step
-        const res = qs('#result');
-        if (res) res.classList.remove('hidden');
-      }
-    })();
+      });
+    });
   </script>
 </body>
 </html>
